@@ -2,7 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import config from '../config';
-
+import {
+    logoDark,
+    logo,
+} from '../assets/images';
 const Navbar = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const location = useLocation();
@@ -210,13 +213,13 @@ const Navbar = () => {
                         >
                             {isDarkTheme ? (
                                 <img
-                                    src="/miumiu_dark.svg"
+                                    src={logoDark}
                                     alt="Miumiu Studio"
                                     className="logo"
                                 />
                             ) : (
                                 <img
-                                    src="/miumiu.svg"
+                                    src={logo}
                                     alt="Miumiu Studio"
                                     className="logo"
                                 />
