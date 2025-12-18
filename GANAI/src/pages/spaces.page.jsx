@@ -1,41 +1,76 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { spaceProjects } from '../data/spaceProjects';
 import LazyImage from '../components/LazyImage';
 import ImageGallery from '../components/ImageGallery';
 import Meta from '../components/Meta';
 
+// Function to collect all images from a project
+const getAllImages = (project) => {
+    let images = [...project.images];
+    if (project.referenceProject?.images) {
+        images.push(...project.referenceProject.images);
+    }
+    if (project.climateAnalysis?.images) {
+        images.push(...project.climateAnalysis.images);
+    }
+    if (project.AIGen?.images) {
+        images.push(...project.AIGen.images);
+    }
+    return images;
+};
+
 const SpaceCard = ({ space }) => {
+    const { i18n } = useTranslation();
+    const allImages = getAllImages(space);
+    console.log(space);
+
+    // Helper function to get localized content
+    const getLocalized = (field) => {
+        if (typeof field === 'object' && field !== null) {
+            const lang = i18n.language === 'VI' ? 'vi' : 'en';
+            return field[lang] || field.en || field.vi || '';
+        }
+        return field;
+    };
+
     return (
         <div className="group cursor-pointer">
             <div className="relative mb-4 aspect-[4/3] overflow-hidden">
                 <ImageGallery
-                    images={space.images}
-                    alt={space.title}
+                    images={allImages}
+                    alt={getLocalized(space.title)}
                     className="absolute inset-0 h-full w-full object-cover"
                     transitionDuration="duration-500"
                     transitionTiming="ease-in-out-back"
                 />
             </div>
-            <Link to={`/spaces/${space.id}`}>
-                <h3 className="mb-2 text-xl font-light">{space.title}</h3>
+            <Link to={`/spaces/${space.slug}`}>
+                <h3 className="mb-2 text-xl font-light">
+                    {getLocalized(space.title)}
+                </h3>
                 <p className="paragraph mb-3 line-clamp-2">
-                    {Array.isArray(space.description)
-                        ? space.description[0]
-                        : space.description}
+                    {Array.isArray(getLocalized(space.description))
+                        ? getLocalized(space.description)[0]
+                        : getLocalized(space.description)}
                 </p>
                 <div className="flex justify-between gap-6 text-dark-grey">
                     <div>
                         <p className="mb-1 text-sm uppercase text-light-grey">
                             Location
                         </p>
-                        <p className="font-light">{space.location}</p>
+                        <p className="font-light text-light-grey">
+                            {getLocalized(space.location)}
+                        </p>
                     </div>
                     <div>
                         <p className="mb-1 text-sm uppercase text-light-grey">
                             Year
                         </p>
-                        <p className="font-light">{space.year}</p>
+                        <p className="font-light text-light-grey">
+                            {getLocalized(space.year)}
+                        </p>
                     </div>
                 </div>
             </Link>
@@ -44,8 +79,19 @@ const SpaceCard = ({ space }) => {
 };
 
 const Spaces = () => {
+    const { i18n } = useTranslation();
     // Get featured project (first one for now)
     const featuredProject = spaceProjects[0];
+
+    const featuredImages = getAllImages(featuredProject);
+
+    // Helper function to get localized content
+    const getLocalized = (obj) => {
+        if (typeof obj === 'object' && obj !== null) {
+            return obj[i18n.language] || obj.EN || obj.VI || '';
+        }
+        return obj;
+    };
 
     return (
         <div>
@@ -70,8 +116,8 @@ const Spaces = () => {
                         <div className="mb-6 md:mb-0">
                             <div className="relative aspect-[4/3] overflow-hidden">
                                 <ImageGallery
-                                    images={featuredProject.images}
-                                    alt={featuredProject.title}
+                                    images={featuredImages}
+                                    alt={getLocalized(featuredProject.title)}
                                     className="absolute inset-0 h-full w-full object-cover"
                                     transitionDuration="duration-500"
                                     transitionTiming="ease-in-out-back"
@@ -83,12 +129,16 @@ const Spaces = () => {
                                 Featured Project
                             </h2>
                             <h3 className="font-gelasio mb-2 text-2xl">
-                                {featuredProject.title}
+                                {getLocalized(featuredProject.title)}
                             </h3>
                             <p className="paragraph mb-6">
-                                {Array.isArray(featuredProject.description)
-                                    ? featuredProject.description[0]
-                                    : featuredProject.description}
+                                {Array.isArray(
+                                    getLocalized(featuredProject.description),
+                                )
+                                    ? getLocalized(
+                                          featuredProject.description,
+                                      )[0]
+                                    : getLocalized(featuredProject.description)}
                             </p>
                             <div className="mb-6 flex justify-between gap-8 text-dark-grey">
                                 <div>
@@ -96,7 +146,7 @@ const Spaces = () => {
                                         Location
                                     </p>
                                     <p className="font-light">
-                                        {featuredProject.location}
+                                        {getLocalized(featuredProject.location)}
                                     </p>
                                 </div>
                                 <div>
@@ -104,12 +154,12 @@ const Spaces = () => {
                                         Year
                                     </p>
                                     <p className="font-light">
-                                        {featuredProject.year}
+                                        {getLocalized(featuredProject.year)}
                                     </p>
                                 </div>
                             </div>
                             <Link
-                                to={`/spaces/${featuredProject.id}`}
+                                to={`/spaces/${featuredProject.slug}`}
                                 className="btn-primary"
                             >
                                 View Project
@@ -140,16 +190,16 @@ const Spaces = () => {
                                 >
                                     <div className="relative mb-4 aspect-[4/3] w-full overflow-hidden">
                                         <ImageGallery
-                                            images={space.images}
-                                            alt={space.title}
+                                            images={getAllImages(space)}
+                                            alt={getLocalized(space.title)}
                                             className="absolute inset-0 h-full w-full object-cover"
                                             transitionDuration="duration-500"
                                             transitionTiming="ease-in-out-back"
                                         />
                                     </div>
-                                    <Link to={`/spaces/${space.id}`}>
+                                    <Link to={`/spaces/${space.slug}`}>
                                         <h3 className="mb-2 text-xl font-light">
-                                            {space.title}
+                                            {getLocalized(space.title)}
                                         </h3>
                                         <div className="flex gap-6 text-dark-grey">
                                             <div>
@@ -157,7 +207,9 @@ const Spaces = () => {
                                                     Location
                                                 </p>
                                                 <p className="font-light">
-                                                    {space.location}
+                                                    {getLocalized(
+                                                        space.location,
+                                                    )}
                                                 </p>
                                             </div>
                                             <div>
@@ -165,7 +217,7 @@ const Spaces = () => {
                                                     Year
                                                 </p>
                                                 <p className="font-light">
-                                                    {space.year}
+                                                    {getLocalized(space.year)}
                                                 </p>
                                             </div>
                                         </div>

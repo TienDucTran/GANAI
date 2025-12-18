@@ -1,17 +1,28 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { spaceProjects } from '../data/spaceProjects';
 import LazyImage from '../components/LazyImage';
 import Meta from '../components/Meta';
 
 const SpaceDetail = () => {
-    const { id } = useParams();
+    const { slug } = useParams();
+    const { i18n } = useTranslation();
     const [currentProject, setCurrentProject] = useState(null);
+
+    // Helper function to get localized content
+    const getLocalized = (obj) => {
+        if (typeof obj === 'object' && obj !== null) {
+            return obj[i18n.language] || obj.EN || obj.VI || '';
+        }
+        return obj;
+    };
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [prevProject, setPrevProject] = useState(null);
     const [nextProject, setNextProject] = useState(null);
     const [loading, setLoading] = useState(true);
     const [imagesLoaded, setImagesLoaded] = useState(false);
+    const [allImages, setAllImages] = useState([]);
     const [modalOpen, setModalOpen] = useState(false);
     const [modalImageIndex, setModalImageIndex] = useState(0);
     const modalRef = useRef(null);
@@ -20,14 +31,14 @@ const SpaceDetail = () => {
     const getDynamicMeta = () => {
         if (!currentProject) return {};
 
+        const images = allImages.length > 0 ? allImages : currentProject.images;
+        const desc = getLocalized(currentProject.description);
         return {
-            title: `${currentProject.title} | Miumiu Design Studio`,
-            description: Array.isArray(currentProject.description)
-                ? currentProject.description[0]
-                : currentProject.description,
-            image: currentProject.images[0].image,
-            url: `https://ganai.com/spaces/${currentProject.id}`,
-            keywords: `${currentProject.title}, ${currentProject.location}, design project, architecture, ${currentProject.year}`,
+            title: `${getLocalized(currentProject.title)} | Miumiu Design Studio`,
+            description: Array.isArray(desc) ? desc[0] : desc,
+            image: images[0]?.image,
+            url: `https://ganai.com/spaces/${currentProject.slug}`,
+            keywords: `${getLocalized(currentProject.title)}, ${getLocalized(currentProject.location)}, design project, architecture, ${getLocalized(currentProject.year)}`,
         };
     };
 
@@ -37,15 +48,14 @@ const SpaceDetail = () => {
         setImagesLoaded(false);
 
         // Find the current project based on the URL parameter
-        const projectId = parseInt(id);
-        const project = spaceProjects.find((p) => p.id === projectId);
+        const project = spaceProjects.find((p) => p.slug === slug);
 
         if (project) {
             setCurrentProject(project);
 
             // Find previous and next projects for navigation
             const currentIndex = spaceProjects.findIndex(
-                (p) => p.id === projectId,
+                (p) => p.slug === slug,
             );
             setPrevProject(
                 currentIndex > 0 ? spaceProjects[currentIndex - 1] : null,
@@ -58,8 +68,21 @@ const SpaceDetail = () => {
 
             setCurrentImageIndex(0); // Reset image slider
 
+            // Collect all images from the project including nested ones
+            let collectedImages = [...project.images];
+            if (project.referenceProject?.images) {
+                collectedImages.push(...project.referenceProject.images);
+            }
+            if (project.climateAnalysis?.images) {
+                collectedImages.push(...project.climateAnalysis.images);
+            }
+            if (project.AIGen?.images) {
+                collectedImages.push(...project.AIGen.images);
+            }
+            setAllImages(collectedImages);
+
             // Preload all images
-            const imagePromises = project.images.map((imgObj) => {
+            const imagePromises = collectedImages.map((imgObj) => {
                 return new Promise((resolve) => {
                     const img = new Image();
                     img.src = imgObj.image;
@@ -74,19 +97,19 @@ const SpaceDetail = () => {
         }
 
         setLoading(false);
-    }, [id]);
+    }, [slug]);
 
     const handleNextImage = () => {
         if (!currentProject) return;
         setCurrentImageIndex((prevIndex) =>
-            prevIndex === currentProject.images.length - 1 ? 0 : prevIndex + 1,
+            prevIndex === allImages.length - 1 ? 0 : prevIndex + 1,
         );
     };
 
     const handlePrevImage = () => {
         if (!currentProject) return;
         setCurrentImageIndex((prevIndex) =>
-            prevIndex === 0 ? currentProject.images.length - 1 : prevIndex - 1,
+            prevIndex === 0 ? allImages.length - 1 : prevIndex - 1,
         );
     };
 
@@ -147,7 +170,7 @@ const SpaceDetail = () => {
         }
         if (!currentProject) return;
         setModalImageIndex((prevIndex) =>
-            prevIndex === currentProject.images.length - 1 ? 0 : prevIndex + 1,
+            prevIndex === allImages.length - 1 ? 0 : prevIndex + 1,
         );
     };
 
@@ -157,7 +180,7 @@ const SpaceDetail = () => {
         }
         if (!currentProject) return;
         setModalImageIndex((prevIndex) =>
-            prevIndex === 0 ? currentProject.images.length - 1 : prevIndex - 1,
+            prevIndex === 0 ? allImages.length - 1 : prevIndex - 1,
         );
     };
 
@@ -284,9 +307,12 @@ const SpaceDetail = () => {
                             </span>
                         </Link>
                     </div>
-                    <h1 className="heading-lg mb-2">{currentProject.title}</h1>
+                    <h1 className="heading-lg mb-2">
+                        {getLocalized(currentProject.title)}
+                    </h1>
                     <p className="paragraph text-lg mb-0 md:text-xl">
-                        {currentProject.location}, {currentProject.year}
+                        {getLocalized(currentProject.location)},{' '}
+                        {getLocalized(currentProject.year)}
                     </p>
                 </div>
             </section>
@@ -311,11 +337,8 @@ const SpaceDetail = () => {
                         )}
                         <div className="flex h-full w-full items-center justify-center">
                             <LazyImage
-                                src={
-                                    currentProject.images[currentImageIndex]
-                                        .image
-                                }
-                                alt={`${currentProject.title} - Image ${currentImageIndex + 1}`}
+                                src={allImages[currentImageIndex]?.image}
+                                alt={`${getLocalized(currentProject.title)} - Image ${currentImageIndex + 1}`}
                                 className="h-[450px] w-auto object-contain"
                                 transitionDuration="duration-500"
                                 transitionTiming="ease-in-out-back"
@@ -370,14 +393,14 @@ const SpaceDetail = () => {
 
                     {/* Image counter - minimalistic style */}
                     <div className="absolute bottom-4 right-4 rounded-full bg-white bg-opacity-70 px-3 py-1 text-sm text-black backdrop-blur-sm">
-                        {currentImageIndex + 1} / {currentProject.images.length}
+                        {currentImageIndex + 1} / {allImages.length}
                     </div>
                 </div>
 
                 {/* Thumbnail Navigation - horizontal, elegant style */}
                 <div className="container-custom mx-auto mt-4 px-4">
                     <div className="flex justify-center gap-2 overflow-x-auto py-2">
-                        {currentProject.images.map((image, index) => (
+                        {allImages.map((image, index) => (
                             <button
                                 key={index}
                                 onClick={() => handleThumbnailClick(index)}
@@ -406,7 +429,7 @@ const SpaceDetail = () => {
                 <div className="container-custom">
                     <div className="grid gap-8 md:grid-cols-3 md:gap-16">
                         <div className="md:col-span-2">
-                            {currentProject.description.map(
+                            {getLocalized(currentProject.description).map(
                                 (paragraph, index) => (
                                     <p
                                         key={index}
@@ -416,7 +439,6 @@ const SpaceDetail = () => {
                                     </p>
                                 ),
                             )}
-
                         </div>
                         <div className="space-y-8 rounded-md bg-light-grey p-6 md:rounded-none md:bg-white md:p-0">
                             <div>
@@ -429,7 +451,9 @@ const SpaceDetail = () => {
                                             Location
                                         </p>
                                         <p className="text-content">
-                                            {currentProject.location}
+                                            {getLocalized(
+                                                currentProject.location,
+                                            )}
                                         </p>
                                     </div>
                                     <div className="border-color-gray border-b pb-4 pl-1">
@@ -437,7 +461,7 @@ const SpaceDetail = () => {
                                             Year
                                         </p>
                                         <p className="text-content">
-                                            {currentProject.year}
+                                            {getLocalized(currentProject.year)}
                                         </p>
                                     </div>
                                     <div className="border-color-gray border-r">
@@ -445,7 +469,7 @@ const SpaceDetail = () => {
                                             Size
                                         </p>
                                         <p className="text-content">
-                                            {currentProject.size}
+                                            {getLocalized(currentProject.size)}
                                         </p>
                                     </div>
                                 </div>
@@ -456,7 +480,7 @@ const SpaceDetail = () => {
                                     Team
                                 </p>
                                 <ul className="mb-4">
-                                    {currentProject.team.map(
+                                    {getLocalized(currentProject.team).map(
                                         (member, index) => (
                                             <li
                                                 key={index}
@@ -474,111 +498,289 @@ const SpaceDetail = () => {
                                     Photo Credits
                                 </h3>
                                 <p className="text-content">
-                                    {currentProject.credits}
+                                    {getLocalized(currentProject.credits)}
                                 </p>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
- {/* Analysis Sections */}
-                            {currentProject.siteAnalysis && (
-                                <section className="mb-8">
-                                    <h3 className="text-lg mb-4 font-semibold">
-                                        {currentProject.siteAnalysis.title}
-                                    </h3>
-                                    <ul className="space-y-2">
-                                        {currentProject.siteAnalysis.items.map(
-                                            (item, index) => (
-                                                <li key={index}>
-                                                    <strong>
-                                                        {item.label}:
-                                                    </strong>{' '}
-                                                    {item.content}
-                                                </li>
-                                            ),
-                                        )}
-                                    </ul>
-                                </section>
-                            )}
 
-                            {currentProject.climateAnalysis && (
-                                <section className="mb-8">
-                                    <h3 className="text-lg mb-4 font-semibold">
-                                        {currentProject.climateAnalysis.title}
-                                    </h3>
-                                    <ul className="space-y-2">
-                                        {currentProject.climateAnalysis.items.map(
-                                            (item, index) => (
-                                                <li key={index}>
-                                                    <strong>
-                                                        {item.label}:
-                                                    </strong>{' '}
-                                                    {item.content}
-                                                </li>
-                                            ),
-                                        )}
-                                    </ul>
-                                </section>
-                            )}
-
-                            {currentProject.strengths && (
-                                <section className="mb-8">
-                                    <h3 className="text-lg mb-4 font-semibold">
-                                        {currentProject.strengths.title}
-                                    </h3>
-                                    <ul className="space-y-2">
-                                        {currentProject.strengths.items.map(
-                                            (item, index) => (
-                                                <li key={index}>
-                                                    <strong>
-                                                        {item.label}:
-                                                    </strong>{' '}
-                                                    {item.content}
-                                                </li>
-                                            ),
-                                        )}
-                                    </ul>
-                                </section>
-                            )}
-
-                            {currentProject.challengesAndSolutions && (
-                                <section className="mb-8">
-                                    <h3 className="text-lg mb-4 font-semibold">
-                                        {
-                                            currentProject
-                                                .challengesAndSolutions.title
-                                        }
-                                    </h3>
-                                    <table className="w-full border-collapse border border-gray-300">
-                                        <thead>
-                                            <tr className="bg-gray-100">
-                                                <th className="border p-3 text-left">
-                                                    Thách thức
-                                                </th>
-                                                <th className="border p-3 text-left">
-                                                    Giải pháp tối ưu
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {currentProject.challengesAndSolutions.rows.map(
-                                                (row, index) => (
-                                                    <tr key={index}>
-                                                        <td className="border p-3">
-                                                            {row.challenge}
-                                                        </td>
-                                                        <td className="border p-3">
-                                                            {row.solution}
-                                                        </td>
-                                                    </tr>
-                                                ),
+            {currentProject.referenceProject && (
+                <>
+                    <section className="bg-white py-10">
+                        <div className="container-custom">
+                            <div className="flex flex-col">
+                                {currentProject.referenceProject.images.map(
+                                    (image, imageIndex) => (
+                                        <div
+                                            key={imageIndex}
+                                            className="mb-[1px] w-full cursor-pointer"
+                                            onClick={() => {
+                                                // Explicitly log the index to verify it's correct
+                                                console.log(
+                                                    `Opening modal for image index: ${imageIndex}`,
+                                                );
+                                                openImageModal(imageIndex);
+                                            }}
+                                        >
+                                            <div className="flex w-full justify-center">
+                                                <LazyImage
+                                                    src={image.image}
+                                                    alt={`${getLocalized(currentProject.title)} - Image ${imageIndex + 1}`}
+                                                    className="max-h-[80vh] max-w-full object-contain"
+                                                    transitionDuration="duration-500"
+                                                    transitionTiming="ease-in-out-back"
+                                                    placeholderColor="bg-light-grey"
+                                                />
+                                            </div>
+                                            {image.description && (
+                                                <p className="mb-2 mt-2 text-center text-sm text-dark-grey">
+                                                    {getLocalized(
+                                                        image.description,
+                                                    )}
+                                                </p>
                                             )}
-                                        </tbody>
-                                    </table>
-                                </section>
+                                        </div>
+                                    ),
+                                )}
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <ul className="space-y-2">
+                            {getLocalized(
+                                currentProject.referenceProject.description,
                             )}
-            {/* Full Width Images Section */}
+                        </ul>
+                    </section>
+                </>
+            )}
+            {currentProject.siteAnalysis && (
+                <>
+                    <section className="bg-white py-10">
+                        <div className="container-custom">
+                            <div className="flex flex-col">
+                                {currentProject.images.map(
+                                    (image, imageIndex) => (
+                                        <div
+                                            key={imageIndex}
+                                            className="mb-[1px] w-full cursor-pointer"
+                                            onClick={() => {
+                                                // Explicitly log the index to verify it's correct
+                                                console.log(
+                                                    `Opening modal for image index: ${imageIndex}`,
+                                                );
+                                                openImageModal(imageIndex);
+                                            }}
+                                        >
+                                            <div className="flex w-full justify-center">
+                                                <LazyImage
+                                                    src={image.image}
+                                                    alt={`${getLocalized(currentProject.title)} - Image ${imageIndex + 1}`}
+                                                    className="max-h-[80vh] max-w-full object-contain"
+                                                    transitionDuration="duration-500"
+                                                    transitionTiming="ease-in-out-back"
+                                                    placeholderColor="bg-light-grey"
+                                                />
+                                            </div>
+                                            {image.description && (
+                                                <p className="mb-2 mt-2 text-center text-sm text-dark-grey">
+                                                    {getLocalized(
+                                                        image.description,
+                                                    )}
+                                                </p>
+                                            )}
+                                        </div>
+                                    ),
+                                )}
+                            </div>
+                        </div>
+                    </section>
+                    <section className="mb-8">
+                        <h3 className="text-lg mb-4 font-semibold">
+                            {getLocalized(currentProject.siteAnalysis.title)}
+                        </h3>
+                        <ul className="space-y-2">
+                            {currentProject.siteAnalysis.items.map(
+                                (item, index) => (
+                                    <li key={index}>
+                                        <strong>
+                                            {getLocalized(item.label)}:
+                                        </strong>{' '}
+                                        {getLocalized(item.content)}
+                                    </li>
+                                ),
+                            )}
+                        </ul>
+                    </section>
+                </>
+            )}
+
+            {currentProject.climateAnalysis && (
+                <>
+                    <section className="mb-8">
+                        <h3 className="text-lg mb-4 font-semibold">
+                            {getLocalized(currentProject.climateAnalysis.title)}
+                        </h3>
+                        <ul className="space-y-2">
+                            {currentProject.climateAnalysis.items.map(
+                                (item, index) => (
+                                    <li key={index}>
+                                        <strong>
+                                            {getLocalized(item.label)}:
+                                        </strong>{' '}
+                                        {getLocalized(item.content)}
+                                    </li>
+                                ),
+                            )}
+                        </ul>
+                    </section>
+                    <section className="bg-white py-10">
+                        <div className="container-custom">
+                            <div className="flex flex-col">
+                                {currentProject.climateAnalysis.images.map(
+                                    (image, imageIndex) => (
+                                        <div
+                                            key={imageIndex}
+                                            className="mb-[1px] w-full cursor-pointer"
+                                            onClick={() => {
+                                                // Explicitly log the index to verify it's correct
+                                                console.log(
+                                                    `Opening modal for image index: ${imageIndex}`,
+                                                );
+                                                openImageModal(imageIndex);
+                                            }}
+                                        >
+                                            <div className="flex w-full justify-center">
+                                                <LazyImage
+                                                    src={image.image}
+                                                    alt={`${getLocalized(currentProject.title)} - Image ${imageIndex + 1}`}
+                                                    className="max-h-[80vh] max-w-full object-contain"
+                                                    transitionDuration="duration-500"
+                                                    transitionTiming="ease-in-out-back"
+                                                    placeholderColor="bg-light-grey"
+                                                />
+                                            </div>
+                                            {image.description && (
+                                                <p className="mb-2 mt-2 text-center text-sm text-dark-grey">
+                                                    {getLocalized(
+                                                        image.description,
+                                                    )}
+                                                </p>
+                                            )}
+                                        </div>
+                                    ),
+                                )}
+                            </div>
+                        </div>
+                    </section>
+                </>
+            )}
+            {currentProject.AIGen && (
+                <>
+                    <section>
+                        <h3 className="space-y-2">
+                            {getLocalized(currentProject.AIGen.description)}
+                        </h3>
+                    </section>
+                    <section className="bg-white py-10">
+                        <div className="container-custom">
+                            <div className="flex flex-col">
+                                {currentProject.AIGen.images.map(
+                                    (image, imageIndex) => (
+                                        <div
+                                            key={imageIndex}
+                                            className="mb-[1px] w-full cursor-pointer"
+                                            onClick={() => {
+                                                // Explicitly log the index to verify it's correct
+                                                console.log(
+                                                    `Opening modal for image index: ${imageIndex}`,
+                                                );
+                                                openImageModal(imageIndex);
+                                            }}
+                                        >
+                                            <div className="flex w-full justify-center">
+                                                <LazyImage
+                                                    src={image.image}
+                                                    alt={`${getLocalized(currentProject.title)} - Image ${imageIndex + 1}`}
+                                                    className="max-h-[80vh] max-w-full object-contain"
+                                                    transitionDuration="duration-500"
+                                                    transitionTiming="ease-in-out-back"
+                                                    placeholderColor="bg-light-grey"
+                                                />
+                                            </div>
+                                            {image.description && (
+                                                <p className="mb-2 mt-2 text-center text-sm text-dark-grey">
+                                                    {getLocalized(
+                                                        image.description,
+                                                    )}
+                                                </p>
+                                            )}
+                                        </div>
+                                    ),
+                                )}
+                            </div>
+                        </div>
+                    </section>
+                </>
+            )}
+
+            {currentProject.strengths && (
+                <section className="mb-8">
+                    <h3 className="text-lg mb-4 font-semibold">
+                        {getLocalized(currentProject.strengths.title)}
+                    </h3>
+                    <ul className="space-y-2">
+                        {currentProject.strengths.items.map((item, index) => (
+                            <li key={index}>
+                                <strong>{getLocalized(item.label)}:</strong>{' '}
+                                {getLocalized(item.content)}
+                            </li>
+                        ))}
+                    </ul>
+                </section>
+            )}
+
+            {currentProject.challengesAndSolutions && (
+                <section className="mb-8">
+                    <h3 className="text-lg mb-4 font-semibold">
+                        {getLocalized(
+                            currentProject.challengesAndSolutions.title,
+                        )}
+                    </h3>
+                    <table className="w-full border-collapse border border-gray-300">
+                        <thead>
+                            <tr className="bg-gray-100">
+                                <th className="border p-3 text-left">
+                                    {i18n.language === 'VI'
+                                        ? 'Thách thức'
+                                        : 'Challenge'}
+                                </th>
+                                <th className="border p-3 text-left">
+                                    {i18n.language === 'VI'
+                                        ? 'Giải pháp tối ưu'
+                                        : 'Optimal Solution'}
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {currentProject.challengesAndSolutions.rows.map(
+                                (row, index) => (
+                                    <tr key={index}>
+                                        <td className="border p-3">
+                                            {getLocalized(row.challenge)}
+                                        </td>
+                                        <td className="border p-3">
+                                            {getLocalized(row.solution)}
+                                        </td>
+                                    </tr>
+                                ),
+                            )}
+                        </tbody>
+                    </table>
+                </section>
+            )}
             <section className="bg-white py-10">
                 <div className="container-custom">
                     <div className="flex flex-col">
@@ -606,7 +808,7 @@ const SpaceDetail = () => {
                                 </div>
                                 {image.description && (
                                     <p className="mb-2 mt-2 text-center text-sm text-dark-grey">
-                                        {image.description}
+                                        {getLocalized(image.description)}
                                     </p>
                                 )}
                             </div>
@@ -614,7 +816,6 @@ const SpaceDetail = () => {
                     </div>
                 </div>
             </section>
-
             {/* Project Navigation */}
             <section className="bg-light-grey py-8 md:py-12">
                 <div className="container-custom">
@@ -622,7 +823,7 @@ const SpaceDetail = () => {
                         <div className="w-full transform transition-transform duration-700 ease-in-out hover:-translate-x-2 sm:w-auto">
                             {prevProject && (
                                 <Link
-                                    to={`/spaces/${prevProject.id}`}
+                                    to={`/spaces/${prevProject.slug}`}
                                     className="group flex items-center"
                                 >
                                     <svg
@@ -642,7 +843,7 @@ const SpaceDetail = () => {
                                             Previous Project
                                         </p>
                                         <p className="line-clamp-1 text-xl font-medium group-hover:underline">
-                                            {prevProject.title}
+                                            {getLocalized(prevProject.title)}
                                         </p>
                                     </div>
                                 </Link>
@@ -652,7 +853,7 @@ const SpaceDetail = () => {
                         <div className="w-full transform text-right transition-transform duration-700 ease-in-out hover:translate-x-2 sm:w-auto">
                             {nextProject && (
                                 <Link
-                                    to={`/spaces/${nextProject.id}`}
+                                    to={`/spaces/${nextProject.slug}`}
                                     className="group flex items-center justify-end"
                                 >
                                     <div>
@@ -660,7 +861,7 @@ const SpaceDetail = () => {
                                             Next Project
                                         </p>
                                         <p className="line-clamp-1 text-xl font-medium group-hover:underline">
-                                            {nextProject.title}
+                                            {getLocalized(nextProject.title)}
                                         </p>
                                     </div>
                                     <svg
@@ -698,6 +899,7 @@ const SpaceDetail = () => {
                                 <RelatedProjectCard
                                     key={project.id}
                                     project={project}
+                                    getLocalized={getLocalized}
                                 />
                             ))}
                     </div>
@@ -793,16 +995,12 @@ const SpaceDetail = () => {
                     >
                         {currentProject &&
                             modalImageIndex >= 0 &&
-                            modalImageIndex < currentProject.images.length && (
+                            modalImageIndex < allImages.length && (
                                 <>
                                     <img
                                         key={`modal-image-${modalImageIndex}`}
-                                        src={
-                                            currentProject.images[
-                                                modalImageIndex
-                                            ].image
-                                        }
-                                        alt={`${currentProject.title} - Full screen view`}
+                                        src={allImages[modalImageIndex].image}
+                                        alt={`${getLocalized(currentProject.title)} - Full screen view`}
                                         className="h-full w-full object-contain"
                                         tabIndex={-1}
                                         draggable={false}
@@ -823,7 +1021,7 @@ const SpaceDetail = () => {
 
                     {/* Minimal image counter */}
                     <div className="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full bg-black bg-opacity-50 px-3 py-1 text-sm text-white md:bottom-6">
-                        {modalImageIndex + 1} / {currentProject.images.length}
+                        {modalImageIndex + 1} / {allImages.length}
                     </div>
                 </div>
             )}
@@ -831,27 +1029,26 @@ const SpaceDetail = () => {
     );
 };
 
-const RelatedProjectCard = ({ project }) => {
+const RelatedProjectCard = ({ project, getLocalized }) => {
     return (
         <Link
-            to={`/spaces/${project.id}`}
+            to={`/spaces/${project.slug}`}
             className="group block transform transition-transform duration-700 ease-in-out hover:-translate-y-2"
-            s
         >
             <div className="relative mb-4 overflow-hidden pb-[56.25%]">
                 <LazyImage
                     src={project.images[0].image}
-                    alt={project.title}
+                    alt={getLocalized(project.title)}
                     className="absolute inset-0 h-full w-full"
                     transitionDuration="duration-1000"
                     transitionTiming="ease-in-out-back"
                 />
             </div>
             <h3 className="text-lg mb-2 font-light transition-colors">
-                {project.title}
+                {getLocalized(project.title)}
             </h3>
             <p className="text-sm text-dark-grey">
-                {project.location}, {project.year}
+                {getLocalized(project.location)}, {getLocalized(project.year)}
             </p>
         </Link>
     );

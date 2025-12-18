@@ -6,7 +6,7 @@ const routes = {
     // productlist: "/products/:category",
     introduce: '/introduce',
     contact: '/contact',
-    spaceDetail: '/spaces/:id',
+    spaceDetail: '/spaces/:slug',
     exhibitionDetail: '/exhibitions/:id',
 };
 
