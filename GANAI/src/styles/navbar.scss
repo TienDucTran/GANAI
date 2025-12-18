@@ -1,0 +1,75 @@
+/* Navbar styling */
+
+/* Main header */
+.site-header {
+    background-color: var(--bg-primary);
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-primary);
+}
+
+/* Logo styling */
+.logo {
+    color: var(--text-primary);
+}
+
+/* Mobile menu */
+.mobile-menu {
+    width: 100%;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border-color);
+    background-color: var(--bg-primary);
+    text-transform: uppercase;
+    max-height: 0;
+    opacity: 0;
+
+    @media (min-width: 640px) {
+        display: none;
+    }
+
+    &.open {
+        max-height: 24rem; /* 96 in tailwind */
+        opacity: 1;
+    }
+}
+
+/* Menu toggle button */
+.menu-toggle {
+    color: var(--text-primary);
+
+    @media (min-width: 640px) {
+        display: none;
+    }
+}
+
+/* Desktop navigation */
+.desktop-nav {
+    @media (max-width: 639px) {
+        display: none;
+    }
+
+    display: flex;
+    align-items: center;
+
+    @media (min-width: 1024px) {
+        gap: 2.5rem; /* lg:space-x-10 */
+    }
+
+    gap: 0.5rem; /* space-x-2 */
+    text-transform: uppercase;
+}
+
+/* Theme and language toggle buttons */
+.theme-toggle,
+.language-toggle {
+    color: var(--text-secondary);
+
+    &:hover {
+        color: var(--text-primary);
+    }
+}
+
+.theme-toggle {
+    margin-left: 1rem; /* ml-4 */
+}
+
+/* Navigation links */

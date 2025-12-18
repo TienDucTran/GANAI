@@ -1,0 +1,268 @@
+@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+/* Fix Flaticon import - comment it out if causing issues */
+/* @import "@flaticon/flaticon-uicons/css/all/all"; */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+// SCSS Variables
+$color-white: #ffffff;
+$color-black: #242424;
+$color-grey: #f3f3f3;
+$color-dark-grey: #6b6b6b;
+$color-purple: #8b46ff;
+
+// Essential Reset
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    @apply min-h-screen bg-white font-georgia text-black;
+}
+
+#root {
+    @apply flex min-h-screen flex-col;
+}
+
+// Basic navbar visibility
+.navbar {
+    background-color: $color-white;
+    border-bottom: 1px solid $color-grey;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+@layer components {
+    * {
+        @apply m-0 box-border select-none p-0 text-base ;
+    }
+
+    html {
+        @apply overflow-x-hidden;
+    }
+
+    body {
+        @apply font-georgia font-normal text-black;
+    }
+
+    i {
+        @apply mt-0.5;
+    }
+
+    section {
+        @apply px-[4vw] py-4 lg:px-[8vw];
+    }
+
+    img {
+        @apply h-full w-full object-cover;
+    }
+
+    .navbar {
+        @apply sticky top-0 z-10 flex h-[80px] w-full items-center gap-12 border-b border-grey bg-white px-[5vw] py-5;
+    }
+
+    .h-cover {
+        @apply min-h-[calc(100vh-80px)];
+    }
+
+    .center {
+        @apply mx-auto block;
+    }
+
+    .btn {
+        &-primary,
+        &-secondary {
+            @apply inline-block transform px-6 py-3 font-medium transition-transform duration-700 ease-in-out hover:-translate-y-1 hover:bg-opacity-90;
+        }
+    }
+
+    .input {
+        &-box {
+            @apply w-[100%] rounded-md border border-grey bg-grey p-4 pl-12 placeholder:text-black focus:bg-transparent;
+        }
+
+        &-icon {
+            @apply absolute left-4 top-1/2 -translate-y-1/2;
+        }
+
+        &:disabled,
+        &:disabled ~ .input-icon {
+            @apply opacity-50;
+        }
+    }
+
+    .link {
+        @apply block p-3 px-4 hover:bg-grey hover:text-black;
+    }
+
+    .hide {
+        @apply pointer-events-none opacity-0 duration-100;
+    }
+
+    .show {
+        @apply pointer-events-auto opacity-100;
+    }
+
+    .sidebar-link {
+        @apply flex items-center gap-4 py-5 text-dark-grey hover:text-black;
+
+        &.active {
+            @apply -ml-6 border-r-2 border-black bg-grey/50 pl-6 text-black max-md:border-none md:rounded-bl-lg md:rounded-tl-lg;
+        }
+    }
+
+    #textEditor {
+        h2,
+        h3 {
+            @apply font-varela text-4xl font-bold leading-normal max-md:text-3xl max-md:leading-snug !important;
+        }
+
+        h3 {
+            @apply font-georgia text-3xl leading-loose max-md:text-2xl max-md:leading-normal !important;
+        }
+
+        * {
+            @apply font-varela text-xl leading-10 md:text-2xl;
+        }
+
+        a {
+            @apply text-purple underline hover:opacity-50;
+        }
+    }
+
+    h2 {
+        @apply font-varela text-4xl font-bold leading-normal max-md:text-3xl max-md:leading-snug;
+    }
+
+    h3 {
+        @apply font-georgia text-2xl leading-loose max-md:text-2xl max-md:leading-normal !important;
+    }
+
+    .blog-page-content {
+        * {
+            @apply font-varela text-xl leading-10 md:text-2xl;
+        }
+
+        a {
+            @apply text-purple underline hover:opacity-50;
+        }
+    }
+
+    .tag {
+        @apply rounded-full bg-grey p-3 px-6 capitalize;
+    }
+
+    .blog {
+        &-title {
+            @apply line-clamp-3 text-2xl font-medium leading-7 sm:line-clamp-2;
+        }
+
+        &-index {
+            @apply text-4xl font-bold leading-none text-grey sm:text-3xl lg:text-5xl;
+        }
+    }
+
+    .container-custom {
+        @apply mx-auto max-w-7xl;
+    }
+
+    .heading {
+        &-lg {
+            @apply font-varela text-3xl font-medium tracking-tight;
+
+            @screen md {
+                @apply text-4xl;
+            }
+        }
+
+        &-md {
+            @apply font-varela text-2xl font-medium;
+
+            @screen md {
+                @apply text-3xl;
+            }
+        }
+    }
+
+    .paragraph {
+        @apply text-base leading-relaxed text-dark-grey;
+
+        @screen md {
+            @apply text-xl;
+        }
+    }
+
+    .nav-link {
+        @apply inline-block px-3 py-2 text-center font-varela text-dark-grey hover:text-black;
+
+        &-active {
+            @apply text-black;
+        }
+    }
+
+    .card {
+        @apply overflow-hidden bg-white;
+
+        &-minimal {
+            @apply hover:shadow-md;
+        }
+    }
+
+    .image {
+        &-container {
+            @apply relative overflow-hidden;
+        }
+
+        &-hover {
+            @apply transition-transform duration-500 hover:scale-105;
+        }
+    }
+}
+
+.ce-block__content,
+.ce-toolbar__content {
+    max-width: 900px;
+}
+
+.cdx-settings-button {
+    &[data-tune='withBorder'],
+    &[data-tune='withBackground'],
+    &[data-tune='stretched'] {
+        display: none;
+    }
+}
+
+// Added for debugging - helps see the layout structure
+.debug * {
+    outline: 1px solid red;
+}
+
+.footer-social {
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    transform: translateY(0);
+    &.instagram:hover {
+        color: #e4405f; // Instagram pink
+        transform: translateY(-3px);
+    }
+
+    &.facebook:hover {
+        color: #1877f2; // Facebook blue
+        transform: translateY(-3px);
+    }
+
+    &.twitter:hover {
+        color: #1da1f2; // Twitter blue
+        transform: translateY(-3px);
+    }
+    &.tiktok:hover {
+        color: #010101;
+        transform: translateY(-3px);
+    }
+}

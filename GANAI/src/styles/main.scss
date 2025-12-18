@@ -1,0 +1,12 @@
+// Main SCSS file that imports all component styles
+
+// Base styles
+@import 'variables';
+@import 'theme';
+
+// Layout styles
+@import 'layout';
+
+// Component styles
+@import 'index';
+// Add other component imports as needed
