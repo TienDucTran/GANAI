@@ -8,7 +8,7 @@ const Footer = () => {
             <div className="container-custom">
                 <div className="flex flex-col justify-between border-t border-gray-100 pt-6 text-sm text-dark-grey md:flex-row">
                     <p className="hidden md:block">
-                        &copy; {new Date().getFullYear()} GANAI Studio. All
+                        &copy; {new Date().getFullYear()} Miumiu Studio. All
                         rights reserved.
                     </p>
                     <div className="mt-2 flex justify-center gap-4 md:mt-0">

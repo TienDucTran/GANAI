@@ -63,3 +63,12 @@ export { default as office4 } from './GANAIPics/OFFICE/pic52.jpg';
 export { default as office5 } from './GANAIPics/OFFICE/pic53.jpg';
 export { default as office6 } from './GANAIPics/OFFICE/pic54.jpg';
 export { default as office7 } from './GANAIPics/OFFICE/pic55.jpg';
+
+export { default as thumbnail } from './GANAIPics/PAVILION/thumbnail.png';
+export { default as pavilion1 } from './GANAIPics/PAVILION/des1.png';
+export { default as pavilion2 } from './GANAIPics/PAVILION/des2.png';
+export { default as pavilion3 } from './GANAIPics/PAVILION/des3.jpg';
+export { default as pavilion4 } from './GANAIPics/PAVILION/des4.jpg';
+export { default as pavilion5 } from './GANAIPics/PAVILION/des5.jpg';
+export { default as pavilion6 } from './GANAIPics/PAVILION/des6.jpg';
+export { default as pavilion7 } from './GANAIPics/PAVILION/des7.jpg';

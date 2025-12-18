@@ -40,6 +40,7 @@ export default {
         extend: {
             fontFamily: {
                 georgia: ["'Georgia'", 'serif'],
+                inter: ['Inter', 'sans-serif'],
                 varela: ['Varela Round', 'Arial', 'sans-serif'],
             },
             spacing: {

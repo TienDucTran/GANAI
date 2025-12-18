@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Varela+Round&display=swap');
 /* Fix Flaticon import - comment it out if causing issues */
 /* @import "@flaticon/flaticon-uicons/css/all/all"; */
 
@@ -21,7 +21,7 @@ $color-purple: #8b46ff;
 }
 
 body {
-    @apply min-h-screen bg-white font-georgia text-black;
+    @apply  min-h-screen bg-white text-black;
 }
 
 #root {
@@ -36,10 +36,14 @@ body {
     display: flex;
     align-items: center;
 }
+.logo {
+    height: 200px;
+    width: 100%;
+}
 
 @layer components {
     * {
-        @apply m-0 box-border select-none p-0 text-base ;
+        @apply m-0 box-border select-none p-0 text-base;
     }
 
     html {
@@ -47,7 +51,7 @@ body {
     }
 
     body {
-        @apply font-georgia font-normal text-black;
+        @apply font-inter font-normal text-black;
     }
 
     i {
@@ -123,7 +127,7 @@ body {
         }
 
         h3 {
-            @apply font-georgia text-3xl leading-loose max-md:text-2xl max-md:leading-normal !important;
+            @apply font-inter text-3xl leading-loose max-md:text-2xl max-md:leading-normal !important;
         }
 
         * {
@@ -140,7 +144,7 @@ body {
     }
 
     h3 {
-        @apply font-georgia text-2xl leading-loose max-md:text-2xl max-md:leading-normal !important;
+        @apply font-inter text-2xl leading-loose max-md:text-2xl max-md:leading-normal !important;
     }
 
     .blog-page-content {

@@ -13,7 +13,7 @@ const resources = {
             // Home page translations
             'home.heroTitle': 'Spaces That Speak to the Soul',
             'home.heroDescription':
-                'GANAI Design was founded in Ho Chi Minh City with the belief that great spaces always carry emotions and create lasting connections with people.',
+                'Miumiu Design was founded in Ho Chi Minh City with the belief that great spaces always carry emotions and create lasting connections with people.',
             'home.exploreSpaces': 'Explore Spaces',
             'home.aboutStudio': 'About Studio',
             'home.featuredProject': 'Featured Project',
@@ -37,15 +37,15 @@ const resources = {
             'home.image': 'Image',
             'home.explore': 'Explore',
             // Introduce page translations
-            'introduce.aboutStudio': 'About GANAI Studio',
+            'introduce.aboutStudio': 'About Miumiu Studio',
             'introduce.ourStoryTitle': 'Our Story',
             'introduce.ourStoryP1':
-                'Founded in Ho Chi Minh City, GANAI Studio emerged from a passion for creating spaces that harmonize functionality with aesthetic beauty. Our journey began with a simple vision: to transform living and working environments into thoughtfully designed spaces that inspire and elevate everyday experiences.',
+                'Founded in Ho Chi Minh City, Miumiu Studio emerged from a passion for creating spaces that harmonize functionality with aesthetic beauty. Our journey began with a simple vision: to transform living and working environments into thoughtfully designed spaces that inspire and elevate everyday experiences.',
             'introduce.ourStoryP2':
                 "Drawing inspiration from Vietnam's rich cultural heritage and contemporary design trends, we create interiors that reflect the unique personality and lifestyle of each client while maintaining a timeless elegance.",
             'introduce.ourPhilosophyTitle': 'Our Philosophy',
             'introduce.ourPhilosophyP1':
-                'At GANAI Studio, we believe that exceptional design should be accessible to everyone. Our approach centers on understanding the unique needs and aspirations of our clients, then creating personalized solutions that transform their vision into reality.',
+                'At Miumiu Studio, we believe that exceptional design should be accessible to everyone. Our approach centers on understanding the unique needs and aspirations of our clients, then creating personalized solutions that transform their vision into reality.',
             'introduce.ourPhilosophyP2':
                 'We are committed to sustainable practices, incorporating eco-friendly materials and energy-efficient solutions whenever possible. By balancing aesthetics, functionality, and environmental consciousness, we create spaces that are both beautiful and responsible.',
             'introduce.ourExpertiseTitle': 'Our Expertise',
@@ -75,7 +75,7 @@ const resources = {
                 "Ready to transform your space? Let's create something beautiful together.",
             'introduce.ctaButton': 'Contact Us',
             // Contact page translations
-            'contact.title': 'Contact GANAI Studio',
+            'contact.title': 'Contact Miumiu Studio',
             'contact.visitUs': 'Visit Us',
             'contact.address1': '1st Floor, 51 Street 24A',
             'contact.address2': 'An Phu Ward, Thu Duc City',
@@ -114,7 +114,7 @@ const resources = {
             // Home page translations
             'home.heroTitle': 'Không gian chạm đến tâm hồn',
             'home.heroDescription':
-                'GANAI Design được thành lập tại TP. Hồ Chí Minh với niềm tin rằng những không gian tuyệt vời luôn mang theo cảm xúc và tạo nên kết nối bền vững với con người.',
+                'Miumiu Design được thành lập tại TP. Hồ Chí Minh với niềm tin rằng những không gian tuyệt vời luôn mang theo cảm xúc và tạo nên kết nối bền vững với con người.',
             'home.exploreSpaces': 'Khám phá Không gian',
             'home.aboutStudio': 'Về Studio',
             'home.featuredProject': 'Dự án nổi bật',
@@ -137,15 +137,15 @@ const resources = {
             'home.image': 'Hình ảnh',
             'home.explore': 'Khám phá',
             // Introduce page translations
-            'introduce.aboutStudio': 'Về GANAI Studio',
+            'introduce.aboutStudio': 'Về Miumiu Studio',
             'introduce.ourStoryTitle': 'Câu chuyện của chúng tôi',
             'introduce.ourStoryP1':
-                'Được thành lập tại TP. Hồ Chí Minh, GANAI Studio ra đời từ niềm đam mê tạo nên những không gian hài hòa giữa công năng và vẻ đẹp thẩm mỹ. Hành trình của chúng tôi bắt đầu với một tầm nhìn đơn giản: biến đổi không gian sống và làm việc thành những nơi được thiết kế tinh tế, truyền cảm hứng và nâng tầm trải nghiệm hàng ngày.',
+                'Được thành lập tại TP. Hồ Chí Minh, Miumiu Studio ra đời từ niềm đam mê tạo nên những không gian hài hòa giữa công năng và vẻ đẹp thẩm mỹ. Hành trình của chúng tôi bắt đầu với một tầm nhìn đơn giản: biến đổi không gian sống và làm việc thành những nơi được thiết kế tinh tế, truyền cảm hứng và nâng tầm trải nghiệm hàng ngày.',
             'introduce.ourStoryP2':
                 'Lấy cảm hứng từ di sản văn hóa Việt Nam và các xu hướng thiết kế đương đại, chúng tôi sáng tạo nên những không gian nội thất phản ánh cá tính, lối sống riêng của từng khách hàng mà vẫn giữ được nét thanh lịch vượt thời gian.',
             'introduce.ourPhilosophyTitle': 'Triết lý của chúng tôi',
             'introduce.ourPhilosophyP1':
-                'Tại GANAI Studio, chúng tôi tin rằng thiết kế xuất sắc nên dành cho tất cả mọi người. Phương châm của chúng tôi là thấu hiểu nhu cầu, mong muốn riêng của từng khách hàng để tạo ra giải pháp cá nhân hóa, biến ý tưởng thành hiện thực.',
+                'Tại Miumiu Studio, chúng tôi tin rằng thiết kế xuất sắc nên dành cho tất cả mọi người. Phương châm của chúng tôi là thấu hiểu nhu cầu, mong muốn riêng của từng khách hàng để tạo ra giải pháp cá nhân hóa, biến ý tưởng thành hiện thực.',
             'introduce.ourPhilosophyP2':
                 'Chúng tôi cam kết thực hành phát triển bền vững, sử dụng vật liệu thân thiện môi trường và các giải pháp tiết kiệm năng lượng khi có thể. Bằng cách cân bằng giữa thẩm mỹ, công năng và ý thức môi trường, chúng tôi kiến tạo nên những không gian vừa đẹp vừa có trách nhiệm.',
             'introduce.ourExpertiseTitle': 'Chuyên môn của chúng tôi',
@@ -175,7 +175,7 @@ const resources = {
                 'Sẵn sàng biến đổi không gian của bạn? Hãy cùng nhau tạo nên điều tuyệt vời.',
             'introduce.ctaButton': 'Liên hệ',
             // Contact page translations
-            'contact.title': 'Liên hệ GANAI Studio',
+            'contact.title': 'Liên hệ Miumiu Studio',
             'contact.visitUs': 'Đến với chúng tôi',
             'contact.address1': 'Lầu 1, 51 Đường 24A',
             'contact.address2': 'Phường An Phú, TP Thủ Đức',

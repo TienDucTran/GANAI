@@ -208,7 +208,19 @@ const Navbar = () => {
                             tabIndex={-1}
                             draggable={false}
                         >
-                            GANAI
+                            {isDarkTheme ? (
+                                <img
+                                    src="/miumiu_dark.svg"
+                                    alt="Miumiu Studio"
+                                    className="logo"
+                                />
+                            ) : (
+                                <img
+                                    src="/miumiu.svg"
+                                    alt="Miumiu Studio"
+                                    className="logo"
+                                />
+                            )}
                         </Link>
                         {/* Desktop navigation */}
                         <nav className="hidden items-center space-x-2 uppercase sm:flex lg:space-x-4">

@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import config from '../config';
-import { drhealcare1 } from '../assets/images';
+import { thumbnail } from '../assets/images';
 import Meta from '../components/Meta';
 
 const Home = () => {
@@ -45,7 +45,7 @@ const Home = () => {
                             <img
                                 className="block h-full w-full object-cover object-center"
                                 href="noImg"
-                                src={drhealcare1}
+                                src={thumbnail}
                             ></img>
                         </div>
                         <div>

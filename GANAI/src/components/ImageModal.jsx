@@ -115,10 +115,17 @@ const ImageModal = ({ isOpen, onClose, images, initialIndex = 0, title }) => {
                 onClick={(e) => e.stopPropagation()}
             >
                 <img
-                    src={images[currentIndex]}
+                    src={images[currentIndex].image}
                     alt={title || `Image ${currentIndex + 1}`}
                     className="max-h-[85vh] max-w-[90vw] object-contain"
                 />
+
+                {/* Description */}
+                {images[currentIndex].description && (
+                    <p className="mt-4 text-center text-sm text-white">
+                        {images[currentIndex].description}
+                    </p>
+                )}
 
                 {/* Navigation buttons */}
                 {images.length > 1 && (

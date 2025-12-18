@@ -84,7 +84,7 @@ const ImageGallery = ({
                 onClick={handleContainerClick}
             >
                 <LazyImage
-                    src={images[currentIndex]}
+                    src={images[currentIndex].image}
                     alt={`${alt} - ${currentIndex + 1} of ${images.length}`}
                     className="h-full w-full object-cover"
                     transitionDuration={transitionDuration}

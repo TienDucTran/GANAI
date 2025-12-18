@@ -21,11 +21,11 @@ const SpaceDetail = () => {
         if (!currentProject) return {};
 
         return {
-            title: `${currentProject.title} | GANAI Design Studio`,
+            title: `${currentProject.title} | Miumiu Design Studio`,
             description: Array.isArray(currentProject.description)
                 ? currentProject.description[0]
                 : currentProject.description,
-            image: currentProject.images[0],
+            image: currentProject.images[0].image,
             url: `https://ganai.com/spaces/${currentProject.id}`,
             keywords: `${currentProject.title}, ${currentProject.location}, design project, architecture, ${currentProject.year}`,
         };
@@ -59,10 +59,10 @@ const SpaceDetail = () => {
             setCurrentImageIndex(0); // Reset image slider
 
             // Preload all images
-            const imagePromises = project.images.map((src) => {
+            const imagePromises = project.images.map((imgObj) => {
                 return new Promise((resolve) => {
                     const img = new Image();
-                    img.src = src;
+                    img.src = imgObj.image;
                     img.onload = resolve;
                     img.onerror = resolve; // Still resolve even on error to not block
                 });
@@ -265,7 +265,7 @@ const SpaceDetail = () => {
                     <div className="mb-4 md:mb-6">
                         <Link
                             to="/spaces"
-                            className="flex transform items-center text-dark-grey transition-transform duration-700 ease-in-out hover:-translate-x-2"
+                            className="flex w-fit transform items-center text-dark-grey transition-transform duration-700 ease-in-out hover:-translate-x-2"
                         >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -311,7 +311,10 @@ const SpaceDetail = () => {
                         )}
                         <div className="flex h-full w-full items-center justify-center">
                             <LazyImage
-                                src={currentProject.images[currentImageIndex]}
+                                src={
+                                    currentProject.images[currentImageIndex]
+                                        .image
+                                }
                                 alt={`${currentProject.title} - Image ${currentImageIndex + 1}`}
                                 className="h-[450px] w-auto object-contain"
                                 transitionDuration="duration-500"
@@ -386,7 +389,7 @@ const SpaceDetail = () => {
                                 aria-label={`View image ${index + 1}`}
                             >
                                 <LazyImage
-                                    src={image}
+                                    src={image.image}
                                     alt={`Thumbnail ${index + 1}`}
                                     className="h-full w-full object-cover"
                                     transitionDuration="duration-300"
@@ -407,12 +410,13 @@ const SpaceDetail = () => {
                                 (paragraph, index) => (
                                     <p
                                         key={index}
-                                        className="paragraph md:text-lg mb-6 text-base"
+                                        className="paragraph md:text-lg text-content mb-6 text-xl"
                                     >
                                         {paragraph}
                                     </p>
                                 ),
                             )}
+
                         </div>
                         <div className="space-y-8 rounded-md bg-light-grey p-6 md:rounded-none md:bg-white md:p-0">
                             <div>
@@ -420,45 +424,160 @@ const SpaceDetail = () => {
                                     Project Details
                                 </h3>
                                 <div className="grid grid-cols-2 gap-y-4">
-                                    <div>
-                                        <p className="mb-1 text-sm uppercase text-dark-grey text-light-grey">
+                                    <div className="border-color-gray border-b pb-4">
+                                        <p className="mb-1 text-sm uppercase text-dark-grey">
                                             Location
                                         </p>
-                                        <p>{currentProject.location}</p>
+                                        <p className="text-content">
+                                            {currentProject.location}
+                                        </p>
                                     </div>
-                                    <div>
-                                        <p className="mb-1 text-sm uppercase text-dark-grey text-light-grey">
+                                    <div className="border-color-gray border-b pb-4 pl-1">
+                                        <p className="mb-1 text-sm uppercase text-dark-grey">
                                             Year
                                         </p>
-                                        <p>{currentProject.year}</p>
+                                        <p className="text-content">
+                                            {currentProject.year}
+                                        </p>
                                     </div>
-                                    <div>
-                                        <p className="mb-1 text-sm uppercase text-dark-grey text-light-grey">
+                                    <div className="border-color-gray border-r">
+                                        <p className="mb-1 text-sm uppercase text-dark-grey">
                                             Size
                                         </p>
-                                        <p>{currentProject.size}</p>
+                                        <p className="text-content">
+                                            {currentProject.size}
+                                        </p>
                                     </div>
                                 </div>
                             </div>
 
                             <div>
-                                <h3 className="mb-3 text-sm font-medium uppercase text-dark-grey">
+                                <p className="border-color-gray m-0 mb-1 border-t pt-4 text-sm uppercase text-dark-grey">
                                     Team
-                                </h3>
-                                <p className="mb-4">{currentProject.team}</p>
+                                </p>
+                                <ul className="mb-4">
+                                    {currentProject.team.map(
+                                        (member, index) => (
+                                            <li
+                                                key={index}
+                                                className="text-content block"
+                                            >
+                                                {member}
+                                            </li>
+                                        ),
+                                    )}
+                                </ul>
                             </div>
 
                             <div>
                                 <h3 className="mb-3 text-sm font-medium uppercase text-dark-grey">
                                     Photo Credits
                                 </h3>
-                                <p>{currentProject.credits}</p>
+                                <p className="text-content">
+                                    {currentProject.credits}
+                                </p>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
+ {/* Analysis Sections */}
+                            {currentProject.siteAnalysis && (
+                                <section className="mb-8">
+                                    <h3 className="text-lg mb-4 font-semibold">
+                                        {currentProject.siteAnalysis.title}
+                                    </h3>
+                                    <ul className="space-y-2">
+                                        {currentProject.siteAnalysis.items.map(
+                                            (item, index) => (
+                                                <li key={index}>
+                                                    <strong>
+                                                        {item.label}:
+                                                    </strong>{' '}
+                                                    {item.content}
+                                                </li>
+                                            ),
+                                        )}
+                                    </ul>
+                                </section>
+                            )}
 
+                            {currentProject.climateAnalysis && (
+                                <section className="mb-8">
+                                    <h3 className="text-lg mb-4 font-semibold">
+                                        {currentProject.climateAnalysis.title}
+                                    </h3>
+                                    <ul className="space-y-2">
+                                        {currentProject.climateAnalysis.items.map(
+                                            (item, index) => (
+                                                <li key={index}>
+                                                    <strong>
+                                                        {item.label}:
+                                                    </strong>{' '}
+                                                    {item.content}
+                                                </li>
+                                            ),
+                                        )}
+                                    </ul>
+                                </section>
+                            )}
+
+                            {currentProject.strengths && (
+                                <section className="mb-8">
+                                    <h3 className="text-lg mb-4 font-semibold">
+                                        {currentProject.strengths.title}
+                                    </h3>
+                                    <ul className="space-y-2">
+                                        {currentProject.strengths.items.map(
+                                            (item, index) => (
+                                                <li key={index}>
+                                                    <strong>
+                                                        {item.label}:
+                                                    </strong>{' '}
+                                                    {item.content}
+                                                </li>
+                                            ),
+                                        )}
+                                    </ul>
+                                </section>
+                            )}
+
+                            {currentProject.challengesAndSolutions && (
+                                <section className="mb-8">
+                                    <h3 className="text-lg mb-4 font-semibold">
+                                        {
+                                            currentProject
+                                                .challengesAndSolutions.title
+                                        }
+                                    </h3>
+                                    <table className="w-full border-collapse border border-gray-300">
+                                        <thead>
+                                            <tr className="bg-gray-100">
+                                                <th className="border p-3 text-left">
+                                                    Thách thức
+                                                </th>
+                                                <th className="border p-3 text-left">
+                                                    Giải pháp tối ưu
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {currentProject.challengesAndSolutions.rows.map(
+                                                (row, index) => (
+                                                    <tr key={index}>
+                                                        <td className="border p-3">
+                                                            {row.challenge}
+                                                        </td>
+                                                        <td className="border p-3">
+                                                            {row.solution}
+                                                        </td>
+                                                    </tr>
+                                                ),
+                                            )}
+                                        </tbody>
+                                    </table>
+                                </section>
+                            )}
             {/* Full Width Images Section */}
             <section className="bg-white py-10">
                 <div className="container-custom">
@@ -477,7 +596,7 @@ const SpaceDetail = () => {
                             >
                                 <div className="flex w-full justify-center">
                                     <LazyImage
-                                        src={image}
+                                        src={image.image}
                                         alt={`${currentProject.title} - Image ${imageIndex + 1}`}
                                         className="max-h-[80vh] max-w-full object-contain"
                                         transitionDuration="duration-500"
@@ -485,6 +604,11 @@ const SpaceDetail = () => {
                                         placeholderColor="bg-light-grey"
                                     />
                                 </div>
+                                {image.description && (
+                                    <p className="mb-2 mt-2 text-center text-sm text-dark-grey">
+                                        {image.description}
+                                    </p>
+                                )}
                             </div>
                         ))}
                     </div>
@@ -670,14 +794,30 @@ const SpaceDetail = () => {
                         {currentProject &&
                             modalImageIndex >= 0 &&
                             modalImageIndex < currentProject.images.length && (
-                                <img
-                                    key={`modal-image-${modalImageIndex}`}
-                                    src={currentProject.images[modalImageIndex]}
-                                    alt={`${currentProject.title} - Full screen view`}
-                                    className="h-full w-full object-contain"
-                                    tabIndex={-1}
-                                    draggable={false}
-                                />
+                                <>
+                                    <img
+                                        key={`modal-image-${modalImageIndex}`}
+                                        src={
+                                            currentProject.images[
+                                                modalImageIndex
+                                            ].image
+                                        }
+                                        alt={`${currentProject.title} - Full screen view`}
+                                        className="h-full w-full object-contain"
+                                        tabIndex={-1}
+                                        draggable={false}
+                                    />
+                                    {/* {currentProject.images[modalImageIndex]
+                                        .description && (
+                                        <p className="absolute bottom-16 left-1/2 -translate-x-1/2 text-center text-sm text-white">
+                                            {
+                                                currentProject.images[
+                                                    modalImageIndex
+                                                ].description
+                                            }
+                                        </p>
+                                    )} */}
+                                </>
                             )}
                     </div>
 
@@ -700,7 +840,7 @@ const RelatedProjectCard = ({ project }) => {
         >
             <div className="relative mb-4 overflow-hidden pb-[56.25%]">
                 <LazyImage
-                    src={project.images[0]}
+                    src={project.images[0].image}
                     alt={project.title}
                     className="absolute inset-0 h-full w-full"
                     transitionDuration="duration-1000"

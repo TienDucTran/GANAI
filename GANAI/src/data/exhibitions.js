@@ -5,7 +5,7 @@ export const exhibitionsData = {
         subtitle:
             'Exploring the intersection of artificial intelligence and domestic architecture',
         dates: 'January 15 - March 30, 2024',
-        location: 'GANAI Design Gallery, Seoul',
+        location: 'Miumiu Design Gallery, Seoul',
         curator: 'Dr. Min-Jae Kim',
         description: `This groundbreaking exhibition explores how artificial intelligence is fundamentally transforming our living spaces. From smart home technology to AI-guided design principles, visitors will experience how the future of domestic architecture is being reshaped by computational intelligence.
 

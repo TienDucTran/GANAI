@@ -6,6 +6,7 @@
     --bg-secondary: #f3f3f3;
     --bg-tertiary: #fafafa;
     --text-primary: #000;
+    --text-content: #000;
     --text-secondary: #6b6b6b;
     --text-tertiary: #999;
     --border-color: #e5e5e5;
@@ -42,6 +43,7 @@
     --bg-secondary: #2e2e2e;
     --bg-tertiary: #4b4b4b;
     --text-primary: #f3f3f3;
+    --text-content: #999999;
     --text-secondary: #a3a3a3;
     --text-tertiary: #d4d4d4;
     --border-color: #4b4b4b;
@@ -112,6 +114,12 @@ body {
 /* Text styling */
 .text-black {
     color: var(--text-primary) !important;
+}
+.text-content {
+    color: var(--text-content) !important;
+}
+.border-color-gray {
+    border-color: var(--border-color) !important;
 }
 
 .dark .text-white {

@@ -1,6 +1,6 @@
 # Dynamic Meta Tags Implementation Guide
 
-This guide explains how to implement and use the dynamic meta tag system for better SEO and social media sharing across your GANAI application.
+This guide explains how to implement and use the dynamic meta tag system for better SEO and social media sharing across your Miumiu application.
 
 ## Overview
 
@@ -46,7 +46,7 @@ Override default meta data for specific pages:
 ```jsx
 const MyPage = () => {
     const customMeta = {
-        title: 'Custom Page Title | GANAI',
+        title: 'Custom Page Title | Miumiu',
         description: 'Custom page description for better SEO',
         image: '/custom-image.jpg',
         keywords: 'custom, keywords, for, this, page',
@@ -74,7 +74,7 @@ const SpaceDetail = () => {
         if (!currentProject) return {};
 
         return {
-            title: `${currentProject.title} | GANAI Design Studio`,
+            title: `${currentProject.title} | Miumiu Design Studio`,
             description: currentProject.description,
             image: currentProject.images[0],
             url: `https://ganai.com/spaces/${currentProject.id}`,
@@ -100,18 +100,18 @@ The `src/config/meta.js` file contains default meta data for all pages:
 ```javascript
 const metaConfig = {
     default: {
-        title: 'GANAI - Creative Design Studio',
+        title: 'Miumiu - Creative Design Studio',
         description: 'Discover innovative design solutions...',
         keywords: 'design studio, architecture, interior design...',
         image: '/og-image.jpg',
-        url: 'https://ganai.com',
+        url: 'https://Miumiu.com',
         type: 'website',
-        siteName: 'GANAI',
-        twitterHandle: '@ganai_design',
+        siteName: 'Miumiu',
+        twitterHandle: '@Miumiu_design',
     },
     home: {
-        title: 'GANAI - Creative Design Studio | Home',
-        description: 'Welcome to GANAI, where creativity meets innovation...',
+        title: 'Miumiu - Creative Design Studio | Home',
+        description: 'Welcome to Miumiu, where creativity meets innovation...',
         // ... more specific meta data
     },
     // ... other pages
@@ -126,11 +126,11 @@ const metaConfig = {
 const metaConfig = {
     // ... existing pages
     newPage: {
-        title: 'New Page | GANAI Design Studio',
+        title: 'New Page | Miumiu Design Studio',
         description: 'Description for the new page',
         keywords: 'relevant, keywords, for, new, page',
         image: '/images/new-page-og.jpg',
-        url: 'https://ganai.com/new-page',
+        url: 'https://Miumiu.com/new-page',
         type: 'website',
     },
 };
@@ -315,10 +315,10 @@ const ProductDetail = () => {
         if (!product) return {};
 
         return {
-            title: `${product.name} | GANAI Products`,
+            title: `${product.name} | Miumiu Products`,
             description: product.description,
             image: product.image,
-            url: `https://ganai.com/products/${product.id}`,
+            url: `https://Miumiu.com/products/${product.id}`,
             keywords: `${product.name}, ${product.category}, design products`,
         };
     };
@@ -347,6 +347,6 @@ const ProductDetail = () => {
 
 ## Conclusion
 
-This dynamic meta tag system provides comprehensive SEO optimization for your GANAI application. By following this guide, you can ensure that all your pages have proper meta tags for better search engine visibility and social media sharing.
+This dynamic meta tag system provides comprehensive SEO optimization for your Miumiu application. By following this guide, you can ensure that all your pages have proper meta tags for better search engine visibility and social media sharing.
 
 For questions or issues, refer to the troubleshooting section or check the implementation in the existing pages for examples.
