@@ -76,8 +76,11 @@ const SpaceDetail = () => {
             if (project.climateAnalysis?.images) {
                 collectedImages.push(...project.climateAnalysis.images);
             }
-            if (project.AIGen?.images) {
-                collectedImages.push(...project.AIGen.images);
+            if (project.drawProject?.images) {
+                collectedImages.push(...project.drawProject.images);
+            }
+            if (project.AIGEN?.images) {
+                collectedImages.push(...project.AIGEN.images);
             }
             setAllImages(collectedImages);
 
@@ -508,6 +511,13 @@ const SpaceDetail = () => {
 
             {currentProject.referenceProject && (
                 <>
+                    <section>
+                        <h3 className="space-y-2 font-semibold">
+                            {getLocalized(
+                                currentProject.referenceProject.description,
+                            )}
+                        </h3>
+                    </section>
                     <section className="bg-white py-10">
                         <div className="container-custom">
                             <div className="flex flex-col">
@@ -550,7 +560,7 @@ const SpaceDetail = () => {
                     <section>
                         <ul className="space-y-2">
                             {getLocalized(
-                                currentProject.referenceProject.description,
+                                currentProject.referenceProject.descriptionLong,
                             )}
                         </ul>
                     </section>
@@ -677,17 +687,67 @@ const SpaceDetail = () => {
                     </section>
                 </>
             )}
-            {currentProject.AIGen && (
+            {currentProject.drawProject && (
                 <>
                     <section>
-                        <h3 className="space-y-2">
-                            {getLocalized(currentProject.AIGen.description)}
+                        <h3 className="space-y-2 font-semibold">
+                            {getLocalized(
+                                currentProject.drawProject.description,
+                            )}
                         </h3>
                     </section>
                     <section className="bg-white py-10">
                         <div className="container-custom">
                             <div className="flex flex-col">
-                                {currentProject.AIGen.images.map(
+                                {currentProject.drawProject.images.map(
+                                    (image, imageIndex) => (
+                                        <div
+                                            key={imageIndex}
+                                            className="mb-[1px] w-full cursor-pointer"
+                                            onClick={() => {
+                                                // Explicitly log the index to verify it's correct
+                                                console.log(
+                                                    `Opening modal for image index: ${imageIndex}`,
+                                                );
+                                                openImageModal(imageIndex);
+                                            }}
+                                        >
+                                            <div className="flex w-full justify-center">
+                                                <LazyImage
+                                                    src={image.image}
+                                                    alt={`${getLocalized(currentProject.title)} - Image ${imageIndex + 1}`}
+                                                    className="max-h-[80vh] max-w-full object-contain"
+                                                    transitionDuration="duration-500"
+                                                    transitionTiming="ease-in-out-back"
+                                                    placeholderColor="bg-light-grey"
+                                                />
+                                            </div>
+                                            {image.description && (
+                                                <p className="mb-2 mt-2 text-center text-sm text-dark-grey">
+                                                    {getLocalized(
+                                                        image.description,
+                                                    )}
+                                                </p>
+                                            )}
+                                        </div>
+                                    ),
+                                )}
+                            </div>
+                        </div>
+                    </section>
+                </>
+            )}
+            {currentProject.AIGEN && (
+                <>
+                    <section>
+                        <h3 className="space-y-2 font-semibold">
+                            {getLocalized(currentProject.AIGEN.description)}
+                        </h3>
+                    </section>
+                    <section className="bg-white py-10">
+                        <div className="container-custom">
+                            <div className="flex flex-col">
+                                {currentProject.AIGEN.images.map(
                                     (image, imageIndex) => (
                                         <div
                                             key={imageIndex}
@@ -752,12 +812,12 @@ const SpaceDetail = () => {
                     <table className="w-full border-collapse border border-gray-300">
                         <thead>
                             <tr className="bg-gray-100">
-                                <th className="border p-3 text-left">
+                                <th className="border p-3 text-left text-dark-grey">
                                     {i18n.language === 'VI'
                                         ? 'Thách thức'
                                         : 'Challenge'}
                                 </th>
-                                <th className="border p-3 text-left">
+                                <th className="border p-3 text-left text-dark-grey">
                                     {i18n.language === 'VI'
                                         ? 'Giải pháp tối ưu'
                                         : 'Optimal Solution'}

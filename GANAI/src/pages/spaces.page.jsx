@@ -15,8 +15,11 @@ const getAllImages = (project) => {
     if (project.climateAnalysis?.images) {
         images.push(...project.climateAnalysis.images);
     }
-    if (project.AIGen?.images) {
-        images.push(...project.AIGen.images);
+    if (project.drawProject?.images) {
+        images.push(...project.drawProject.images);
+    }
+    if (project.AIGEN?.images) {
+        images.push(...project.AIGEN.images);
     }
     return images;
 };
@@ -26,11 +29,21 @@ const SpaceCard = ({ space }) => {
     const allImages = getAllImages(space);
     console.log(space);
 
-    // Helper function to get localized content
+    // Helper function to get localized content (handles en/vi and EN/VI keys and arrays)
     const getLocalized = (field) => {
         if (typeof field === 'object' && field !== null) {
-            const lang = i18n.language === 'VI' ? 'vi' : 'en';
-            return field[lang] || field.en || field.vi || '';
+            if (Array.isArray(field)) return field;
+            const lang = (i18n.language || '').toLowerCase();
+            const altKey = lang.toUpperCase();
+            return (
+                field[lang] ||
+                field[altKey] ||
+                field.en ||
+                field.EN ||
+                field.vi ||
+                field.VI ||
+                ''
+            );
         }
         return field;
     };
@@ -57,18 +70,18 @@ const SpaceCard = ({ space }) => {
                 </p>
                 <div className="flex justify-between gap-6 text-dark-grey">
                     <div>
-                        <p className="mb-1 text-sm uppercase text-light-grey">
+                        <p className="mb-1 text-sm uppercase text-grey-custom">
                             Location
                         </p>
-                        <p className="font-light text-light-grey">
+                        <p className="font-light ">
                             {getLocalized(space.location)}
                         </p>
                     </div>
                     <div>
-                        <p className="mb-1 text-sm uppercase text-light-grey">
+                        <p className="mb-1 text-sm uppercase text-grey-custom">
                             Year
                         </p>
-                        <p className="font-light text-light-grey">
+                        <p className="font-light ">
                             {getLocalized(space.year)}
                         </p>
                     </div>
@@ -85,10 +98,21 @@ const Spaces = () => {
 
     const featuredImages = getAllImages(featuredProject);
 
-    // Helper function to get localized content
+    // Helper function to get localized content (handles en/vi and EN/VI keys and arrays)
     const getLocalized = (obj) => {
         if (typeof obj === 'object' && obj !== null) {
-            return obj[i18n.language] || obj.EN || obj.VI || '';
+            if (Array.isArray(obj)) return obj;
+            const lang = (i18n.language || '').toLowerCase();
+            const altKey = lang.toUpperCase();
+            return (
+                obj[lang] ||
+                obj[altKey] ||
+                obj.en ||
+                obj.EN ||
+                obj.vi ||
+                obj.VI ||
+                ''
+            );
         }
         return obj;
     };
@@ -142,7 +166,7 @@ const Spaces = () => {
                             </p>
                             <div className="mb-6 flex justify-between gap-8 text-dark-grey">
                                 <div>
-                                    <p className="mb-1 text-sm uppercase text-light-grey">
+                                    <p className="mb-1 text-sm uppercase text-grey-custom">
                                         Location
                                     </p>
                                     <p className="font-light">
@@ -150,7 +174,7 @@ const Spaces = () => {
                                     </p>
                                 </div>
                                 <div>
-                                    <p className="mb-1 text-sm uppercase text-light-grey">
+                                    <p className="mb-1 text-sm uppercase text-grey-custom">
                                         Year
                                     </p>
                                     <p className="font-light">
@@ -201,22 +225,22 @@ const Spaces = () => {
                                         <h3 className="mb-2 text-xl font-light">
                                             {getLocalized(space.title)}
                                         </h3>
-                                        <div className="flex gap-6 text-dark-grey">
+                                        <div className="flex gap-6">
                                             <div>
-                                                <p className="mb-1 text-sm uppercase text-light-grey">
+                                                <p className="mb-1 text-sm uppercase text-dark-grey">
                                                     Location
                                                 </p>
-                                                <p className="font-light">
+                                                <p className="font-light text-dark-grey">
                                                     {getLocalized(
                                                         space.location,
                                                     )}
                                                 </p>
                                             </div>
                                             <div>
-                                                <p className="mb-1 text-sm uppercase text-light-grey">
+                                                <p className="mb-1 text-sm uppercase text-dark-grey">
                                                     Year
                                                 </p>
-                                                <p className="font-light">
+                                                <p className="font-light text-dark-grey">
                                                     {getLocalized(space.year)}
                                                 </p>
                                             </div>

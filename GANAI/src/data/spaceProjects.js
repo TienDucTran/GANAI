@@ -32,6 +32,10 @@ import {
     pavilion5,
     pavilion6,
     pavilion7,
+    matbang,
+    matdung,
+    matben,
+    matcat,
 } from '../assets/images';
 export const spaceProjects = [
     {
@@ -69,6 +73,10 @@ export const spaceProjects = [
         ],
         referenceProject: {
             description: {
+                EN: 'Reference Materials',
+                VI: 'Tài liệu tham khảo',
+            },
+            descriptionLong: {
                 EN: 'Reference materials for the project: steel load-bearing frame supporting large curved shell panels, steel connection system allowing precise assembly and fast construction (characteristic of pavilion). Wood (laminated wood) → Wall and ceiling cladding, creating warmth. Dark wood flooring / finishing materials → Strong contrast with white exterior shell.',
                 VI: 'Tham khảo chất liệu công trình về khung thép chịu lực Đỡ các tấm vỏ cong lớn hệ liên kết thép cho phép lắp ghép chính xác, thi công nhanh (đặc trưng pavilion) Gỗ(lam gỗ) → Ốp tường, trần, tạo sự ấm áp Sàn gỗ / vật liệu hoàn thiện tối màu → Tương phản mạnh với vỏ ngoài trắng',
             },
@@ -164,6 +172,42 @@ export const spaceProjects = [
                     description: {
                         EN: 'Aerial shot capturing the full layout and surrounding environment of the pavilion.',
                         VI: 'Ảnh chụp từ trên cao ghi lại bố cục đầy đủ và môi trường xung quanh của pavilion.',
+                    },
+                },
+            ],
+        },
+        drawProject: {
+            description: {
+                EN: 'Technical drawings of The Whale structure',
+                VI: 'Bản vẽ kỹ thuật công trình The Whale',
+            },
+            images: [
+                {
+                    image: matbang,
+                    description: {
+                        EN: 'Technical drawing of the floor plan.',
+                        VI: 'Bản vẽ kỹ thuật mặt bằng.',
+                    },
+                },
+                {
+                    image: matdung,
+                    description: {
+                        EN: 'Technical drawing of the elevation view.',
+                        VI: 'Bản vẽ kỹ thuật mặt đứng.',
+                    },
+                },
+                {
+                    image: matben,
+                    description: {
+                        EN: 'Technical drawing of the side elevation.',
+                        VI: 'Bản vẽ kỹ thuật mặt bên.',
+                    },
+                },
+                {
+                    image: matcat,
+                    description: {
+                        EN: 'Technical drawing of the sectional view.',
+                        VI: 'Bản vẽ kỹ thuật mặt cắt.',
                     },
                 },
             ],

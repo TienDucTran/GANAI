@@ -72,3 +72,7 @@ export { default as pavilion4 } from './GANAIPics/PAVILION/des4.jpg';
 export { default as pavilion5 } from './GANAIPics/PAVILION/des5.jpg';
 export { default as pavilion6 } from './GANAIPics/PAVILION/des6.jpg';
 export { default as pavilion7 } from './GANAIPics/PAVILION/des7.jpg';
+export { default as matbang } from './GANAIPics/PAVILION/matbang.jpg';
+export { default as matdung } from './GANAIPics/PAVILION/matdung.jpg';
+export { default as matben } from './GANAIPics/PAVILION/matben.jpg';
+export { default as matcat } from './GANAIPics/PAVILION/matcat.jpg';
