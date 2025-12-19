@@ -569,7 +569,7 @@ const SpaceDetail = () => {
                         </div>
                     </section>
                     <section>
-                        <ul className="space-y-2">
+                        <ul className="space-y-2 text-xl">
                             {getLocalized(
                                 currentProject.referenceProject.descriptionLong,
                             )}
@@ -579,7 +579,7 @@ const SpaceDetail = () => {
             )}
             {currentProject.siteAnalysis && (
                 <>
-                   <section className="bg-white py-10">
+                    <section className="bg-white py-10">
                         <div className="container-custom">
                             <div className="flex flex-col">
                                 {currentProject.siteAnalysis.images.map(
@@ -619,7 +619,7 @@ const SpaceDetail = () => {
                         </div>
                     </section>
                     <section>
-                        <ul className="space-y-2">
+                        <ul className="space-y-2 text-xl">
                             {getLocalized(
                                 currentProject.siteAnalysis.description,
                             )}
@@ -668,10 +668,10 @@ const SpaceDetail = () => {
                         <h3 className="text-lg mb-4 font-semibold">
                             {getLocalized(currentProject.siteAnalysis.title)}
                         </h3>
-                        <ul className="space-y-2">
+                        <ul className="space-y-2 text-xl">
                             {currentProject.siteAnalysis.items.map(
                                 (item, index) => (
-                                    <li key={index}>
+                                    <li key={index} className="text-xl">
                                         <strong>
                                             {getLocalized(item.label)}:
                                         </strong>{' '}
@@ -690,10 +690,10 @@ const SpaceDetail = () => {
                         <h3 className="text-lg mb-4 font-semibold">
                             {getLocalized(currentProject.climateAnalysis.title)}
                         </h3>
-                        <ul className="space-y-2">
+                        <ul className="space-y-2 text-xl">
                             {currentProject.climateAnalysis.items.map(
                                 (item, index) => (
-                                    <li key={index}>
+                                    <li key={index} className="text-xl">
                                         <strong>
                                             {getLocalized(item.label)}:
                                         </strong>{' '}
@@ -877,9 +877,9 @@ const SpaceDetail = () => {
                     <h3 className="text-lg mb-4 font-semibold">
                         {getLocalized(currentProject.strengths.title)}
                     </h3>
-                    <ul className="space-y-2">
+                    <ul className="space-y-2 text-xl">
                         {currentProject.strengths.items.map((item, index) => (
-                            <li key={index}>
+                            <li key={index} className="text-xl">
                                 <strong>{getLocalized(item.label)}:</strong>{' '}
                                 {getLocalized(item.content)}
                             </li>
@@ -898,12 +898,12 @@ const SpaceDetail = () => {
                     <table className="w-full border-collapse border border-gray-300">
                         <thead>
                             <tr className="bg-gray-100">
-                                <th className="border p-3 text-left text-dark-grey">
+                                <th className="border p-3 text-left text-dark-grey text-xl">
                                     {i18n.language === 'VI'
                                         ? 'Thách thức'
                                         : 'Challenge'}
                                 </th>
-                                <th className="border p-3 text-left text-dark-grey">
+                                <th className="border p-3 text-left text-dark-grey text-xl">
                                     {i18n.language === 'VI'
                                         ? 'Giải pháp tối ưu'
                                         : 'Optimal Solution'}
@@ -914,10 +914,10 @@ const SpaceDetail = () => {
                             {currentProject.challengesAndSolutions.rows.map(
                                 (row, index) => (
                                     <tr key={index}>
-                                        <td className="border p-3">
+                                        <td className="border p-3 text-xl">
                                             {getLocalized(row.challenge)}
                                         </td>
-                                        <td className="border p-3">
+                                        <td className="border p-3 text-xl">
                                             {getLocalized(row.solution)}
                                         </td>
                                     </tr>
