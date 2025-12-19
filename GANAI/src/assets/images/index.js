@@ -76,6 +76,7 @@ export { default as matbang } from './GANAIPics/PAVILION/matbang.jpg';
 export { default as matdung } from './GANAIPics/PAVILION/matdung.jpg';
 export { default as matben } from './GANAIPics/PAVILION/matben.jpg';
 export { default as matcat } from './GANAIPics/PAVILION/matcat.jpg';
+export { default as pavilionVideo } from './GANAIPics/PAVILION/pavilionVideo.mp4';
 
 export { default as logoDark } from './GANAIPics/miumiu_dark.svg';
 export { default as logo } from './GANAIPics/miumiu.svg';

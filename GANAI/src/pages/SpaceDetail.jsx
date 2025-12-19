@@ -780,6 +780,35 @@ const SpaceDetail = () => {
                                         </div>
                                     ),
                                 )}
+                                <h3 className="space-y-2 font-semibold">
+                                    {getLocalized(
+                                        currentProject.AIGEN.descriptionVideo,
+                                    )}
+                                </h3>
+                                {currentProject.AIGEN.videos &&
+                                    currentProject.AIGEN.videos.map(
+                                        (video, videoIndex) => (
+                                            <div
+                                                key={`video-${videoIndex}`}
+                                                className="mb-[1px] w-full"
+                                            >
+                                                <div className="flex w-full justify-center">
+                                                    <video
+                                                        src={video.video}
+                                                        controls
+                                                        className="max-h-[80vh] max-w-full object-contain"
+                                                    />
+                                                </div>
+                                                {video.description && (
+                                                    <p className="mb-2 mt-2 text-center text-sm text-dark-grey">
+                                                        {getLocalized(
+                                                            video.description,
+                                                        )}
+                                                    </p>
+                                                )}
+                                            </div>
+                                        ),
+                                    )}
                             </div>
                         </div>
                     </section>

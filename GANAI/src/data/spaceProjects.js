@@ -36,6 +36,7 @@ import {
     matdung,
     matben,
     matcat,
+    pavilionVideo,
 } from '../assets/images';
 export const spaceProjects = [
     {
@@ -227,6 +228,19 @@ export const spaceProjects = [
                     description: {
                         EN: 'Interior space highlighting the use of natural materials and lighting.',
                         VI: 'Không gian nội thất nổi bật việc sử dụng vật liệu tự nhiên và ánh sáng.',
+                    },
+                },
+            ],
+            descriptionVideo: {
+                EN: 'Create video with AI',
+                VI: 'Khởi tạo video bằng AI',
+            },
+            videos: [
+                {
+                    video: pavilionVideo, // Assuming you have imported pavilionVideo from assets
+                    description: {
+                        EN: 'Video showcasing the Pavilion The Whale project.',
+                        VI: 'Video giới thiệu dự án Pavilion The Whale.',
                     },
                 },
             ],
