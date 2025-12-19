@@ -1,3 +1,4 @@
+import { thumbnail } from '../assets/images';
 const metaConfig = {
     default: {
         title: 'Miumiu - Creative Design Studio',
@@ -5,8 +6,8 @@ const metaConfig = {
             'Discover innovative design solutions and creative spaces at Miumiu. We specialize in modern architecture, interior design, and creative exhibitions.',
         keywords:
             'design studio, architecture, interior design, creative spaces, exhibitions, modern design',
-        image: '../imgs/Miumiu.jpg',
-        url: 'https://Miumiu.com',
+        image: thumbnail,
+        url: 'https://miumiu-studio.vercel.app',
         type: 'website',
         siteName: 'Miumiu',
         twitterHandle: '@Miumiu_design',
@@ -16,8 +17,8 @@ const metaConfig = {
         description:
             'Welcome to Miumiu, where creativity meets innovation. Explore our portfolio of stunning design projects and discover how we transform spaces.',
         keywords: 'design studio, creative design, portfolio, home, Miumiu',
-        image: '/images/home-og.jpg',
-        url: 'https://Miumiu.com',
+        image: thumbnail,
+        url: 'https://miumiu-studio.vercel.app',
         type: 'website',
     },
     spaces: {
@@ -26,8 +27,8 @@ const metaConfig = {
             'Explore our curated collection of innovative spaces and design projects. From residential to commercial, discover unique design solutions.',
         keywords:
             'spaces, design projects, portfolio, residential design, commercial design',
-        image: '/images/spaces-og.jpg',
-        url: 'https://Miumiu.com/spaces',
+        image: thumbnail,
+        url: 'https://miumiu-studio.vercel.app/spaces',
         type: 'website',
     },
     spaceDetail: {
@@ -36,8 +37,8 @@ const metaConfig = {
             'Discover the intricate details and design philosophy behind our featured spaces. Learn about our creative process and innovative solutions.',
         keywords:
             'space details, design process, architecture details, interior design',
-        image: '/images/space-detail-og.jpg',
-        url: 'https://Miumiu.com/spaces',
+        image: thumbnail,
+        url: 'https://miumiu-studio.vercel.app/spaces',
         type: 'website',
     },
     exhibitions: {
@@ -46,8 +47,8 @@ const metaConfig = {
             'Experience our latest exhibitions showcasing cutting-edge design concepts and creative innovations. Join us in celebrating design excellence.',
         keywords:
             'exhibitions, design shows, creative exhibitions, design events',
-        image: '/images/exhibitions-og.jpg',
-        url: 'https://Miumiu.com/exhibitions',
+        image: thumbnail,
+        url: 'https://miumiu-studio.vercel.app/exhibitions',
         type: 'website',
     },
     products: {
@@ -56,8 +57,8 @@ const metaConfig = {
             'Browse our comprehensive range of design products and services. From furniture to complete design solutions, we have everything you need.',
         keywords:
             'design products, furniture, design services, interior products',
-        image: '/images/products-og.jpg',
-        url: 'https://Miumiu.com/products',
+        image: thumbnail,
+        url: 'https://miumiu-studio.vercel.app/products',
         type: 'website',
     },
     introduce: {
@@ -66,8 +67,8 @@ const metaConfig = {
             "Learn about Miumiu's journey, our design philosophy, and the team behind our creative vision. Discover what makes us unique in the design world.",
         keywords:
             'about us, design philosophy, team, company history, Miumiu story',
-        image: '/images/about-og.jpg',
-        url: 'https://Miumiu.com/introduce',
+        image: thumbnail,
+        url: 'https://miumiu-studio.vercel.app/introduce',
         type: 'website',
     },
     contact: {
@@ -75,8 +76,8 @@ const metaConfig = {
         description:
             "Get in touch with Miumiu for your next design project. We're here to bring your creative vision to life with our expert design services.",
         keywords: 'contact, design consultation, project inquiry, get quote',
-        image: '/images/contact-og.jpg',
-        url: 'https://Miumiu.com/contact',
+        image: thumbnail,
+        url: 'https://miumiu-studio.vercel.app/contact',
         type: 'website',
     },
 };
