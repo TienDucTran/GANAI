@@ -12,6 +12,9 @@ const getAllImages = (project) => {
     if (project.referenceProject?.images) {
         images.push(...project.referenceProject.images);
     }
+    if (project.siteAnalysis?.images) {
+        images.push(...project.siteAnalysis.images);
+    }
     if (project.climateAnalysis?.images) {
         images.push(...project.climateAnalysis.images);
     }
@@ -52,7 +55,12 @@ const SpaceCard = ({ space }) => {
         <div className="group cursor-pointer">
             <div className="relative mb-4 aspect-[4/3] overflow-hidden">
                 <ImageGallery
-                    images={allImages}
+                    images={allImages.map((img) => ({
+                        ...img,
+                        description: img.description
+                            ? getLocalized(img.description)
+                            : undefined,
+                    }))}
                     alt={getLocalized(space.title)}
                     className="absolute inset-0 h-full w-full object-cover"
                     transitionDuration="duration-500"
@@ -70,20 +78,18 @@ const SpaceCard = ({ space }) => {
                 </p>
                 <div className="flex justify-between gap-6 text-dark-grey">
                     <div>
-                        <p className="mb-1 text-sm uppercase text-grey-custom">
+                        <p className="text-grey-custom mb-1 text-sm uppercase">
                             Location
                         </p>
-                        <p className="font-light ">
+                        <p className="font-light">
                             {getLocalized(space.location)}
                         </p>
                     </div>
                     <div>
-                        <p className="mb-1 text-sm uppercase text-grey-custom">
+                        <p className="text-grey-custom mb-1 text-sm uppercase">
                             Year
                         </p>
-                        <p className="font-light ">
-                            {getLocalized(space.year)}
-                        </p>
+                        <p className="font-light">{getLocalized(space.year)}</p>
                     </div>
                 </div>
             </Link>
@@ -140,7 +146,12 @@ const Spaces = () => {
                         <div className="mb-6 md:mb-0">
                             <div className="relative aspect-[4/3] overflow-hidden">
                                 <ImageGallery
-                                    images={featuredImages}
+                                    images={featuredImages.map((img) => ({
+                                        ...img,
+                                        description: img.description
+                                            ? getLocalized(img.description)
+                                            : undefined,
+                                    }))}
                                     alt={getLocalized(featuredProject.title)}
                                     className="absolute inset-0 h-full w-full object-cover"
                                     transitionDuration="duration-500"
@@ -166,7 +177,7 @@ const Spaces = () => {
                             </p>
                             <div className="mb-6 flex justify-between gap-8 text-dark-grey">
                                 <div>
-                                    <p className="mb-1 text-sm uppercase text-grey-custom">
+                                    <p className="text-grey-custom mb-1 text-sm uppercase">
                                         Location
                                     </p>
                                     <p className="font-light">
@@ -174,7 +185,7 @@ const Spaces = () => {
                                     </p>
                                 </div>
                                 <div>
-                                    <p className="mb-1 text-sm uppercase text-grey-custom">
+                                    <p className="text-grey-custom mb-1 text-sm uppercase">
                                         Year
                                     </p>
                                     <p className="font-light">
@@ -214,7 +225,16 @@ const Spaces = () => {
                                 >
                                     <div className="relative mb-4 aspect-[4/3] w-full overflow-hidden">
                                         <ImageGallery
-                                            images={getAllImages(space)}
+                                            images={getAllImages(space).map(
+                                                (img) => ({
+                                                    ...img,
+                                                    description: img.description
+                                                        ? getLocalized(
+                                                              img.description,
+                                                          )
+                                                        : undefined,
+                                                }),
+                                            )}
                                             alt={getLocalized(space.title)}
                                             className="absolute inset-0 h-full w-full object-cover"
                                             transitionDuration="duration-500"

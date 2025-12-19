@@ -78,8 +78,8 @@ export const spaceProjects = [
                 VI: 'Tài liệu tham khảo',
             },
             descriptionLong: {
-                EN: 'Reference materials for the project: steel load-bearing frame supporting large curved shell panels, steel connection system allowing precise assembly and fast construction (characteristic of pavilion). Wood (laminated wood) → Wall and ceiling cladding, creating warmth. Dark wood flooring / finishing materials → Strong contrast with white exterior shell.',
-                VI: 'Tham khảo chất liệu công trình về khung thép chịu lực Đỡ các tấm vỏ cong lớn hệ liên kết thép cho phép lắp ghép chính xác, thi công nhanh (đặc trưng pavilion) Gỗ(lam gỗ) → Ốp tường, trần, tạo sự ấm áp Sàn gỗ / vật liệu hoàn thiện tối màu → Tương phản mạnh với vỏ ngoài trắng',
+                EN: 'References on square and triangular shapes to create rhythm and fluidity.',
+                VI: 'tham khảo về các hình khối vuông và tam giác để tạo nên sự nhịp nhàng, và uyển chuyển.',
             },
             images: [
                 {
@@ -96,6 +96,11 @@ export const spaceProjects = [
                         VI: 'Khu vực cộng đồng mở được thiết kế cho tương tác xã hội và sự kiện.',
                     },
                 },
+            ],
+        },
+
+        siteAnalysis: {
+            images: [
                 {
                     image: pavilion5,
                     description: {
@@ -104,9 +109,10 @@ export const spaceProjects = [
                     },
                 },
             ],
-        },
-
-        siteAnalysis: {
+            description: {
+                EN: 'Reference materials for the project: steel load-bearing frame supporting large curved shell panels, steel connection system allowing precise assembly and fast construction (characteristic of pavilion). Wood (laminated wood) → Wall and ceiling cladding, creating warmth. Dark wood flooring / finishing materials → Strong contrast with white exterior shell.',
+                VI: 'Tham khảo chất liệu công trình về khung thép chịu lực Đỡ các tấm vỏ cong lớn hệ liên kết thép cho phép lắp ghép chính xác, thi công nhanh (đặc trưng pavilion) Gỗ(lam gỗ) → Ốp tường, trần, tạo sự ấm áp Sàn gỗ / vật liệu hoàn thiện tối màu → Tương phản mạnh với vỏ ngoài trắng',
+            },
             title: {
                 EN: '1. Context & Planning',
                 VI: '1. Bối cảnh & Quy hoạch',

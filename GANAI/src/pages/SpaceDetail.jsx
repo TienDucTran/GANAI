@@ -73,6 +73,9 @@ const SpaceDetail = () => {
             if (project.referenceProject?.images) {
                 collectedImages.push(...project.referenceProject.images);
             }
+            if (project.siteAnalysis?.images) {
+                collectedImages.push(...project.siteAnalysis.images);
+            }
             if (project.climateAnalysis?.images) {
                 collectedImages.push(...project.climateAnalysis.images);
             }
@@ -82,7 +85,14 @@ const SpaceDetail = () => {
             if (project.AIGEN?.images) {
                 collectedImages.push(...project.AIGEN.images);
             }
-            setAllImages(collectedImages);
+            setAllImages(
+                collectedImages.map((img) => ({
+                    ...img,
+                    description: img.description
+                        ? getLocalized(img.description)
+                        : undefined,
+                })),
+            );
 
             // Preload all images
             const imagePromises = collectedImages.map((imgObj) => {
@@ -146,8 +156,9 @@ const SpaceDetail = () => {
         }
     };
 
-    const openImageModal = (index) => {
-        if (index >= 0 && index < currentProject.images.length) {
+    const openImageModal = (image) => {
+        const index = allImages.findIndex((img) => img.image === image.image);
+        if (index !== -1) {
             setModalImageIndex(index);
             setTimeout(() => {
                 setModalOpen(true);
@@ -330,7 +341,7 @@ const SpaceDetail = () => {
                             console.log(
                                 `Opening modal from main slider with index: ${currentImageIndex}`,
                             );
-                            openImageModal(currentImageIndex);
+                            openImageModal(allImages[currentImageIndex]);
                         }}
                     >
                         {!imagesLoaded && (
@@ -531,7 +542,7 @@ const SpaceDetail = () => {
                                                 console.log(
                                                     `Opening modal for image index: ${imageIndex}`,
                                                 );
-                                                openImageModal(imageIndex);
+                                                openImageModal(image);
                                             }}
                                         >
                                             <div className="flex w-full justify-center">
@@ -568,6 +579,52 @@ const SpaceDetail = () => {
             )}
             {currentProject.siteAnalysis && (
                 <>
+                   <section className="bg-white py-10">
+                        <div className="container-custom">
+                            <div className="flex flex-col">
+                                {currentProject.siteAnalysis.images.map(
+                                    (image, imageIndex) => (
+                                        <div
+                                            key={imageIndex}
+                                            className="mb-[1px] w-full cursor-pointer"
+                                            onClick={() => {
+                                                // Explicitly log the index to verify it's correct
+                                                console.log(
+                                                    `Opening modal for image index: ${imageIndex}`,
+                                                );
+                                                openImageModal(image);
+                                            }}
+                                        >
+                                            <div className="flex w-full justify-center">
+                                                <LazyImage
+                                                    src={image.image}
+                                                    alt={`${getLocalized(currentProject.title)} - Image ${imageIndex + 1}`}
+                                                    className="max-h-[80vh] max-w-full object-contain"
+                                                    transitionDuration="duration-500"
+                                                    transitionTiming="ease-in-out-back"
+                                                    placeholderColor="bg-light-grey"
+                                                />
+                                            </div>
+                                            {image.description && (
+                                                <p className="mb-2 mt-2 text-center text-sm text-dark-grey">
+                                                    {getLocalized(
+                                                        image.description,
+                                                    )}
+                                                </p>
+                                            )}
+                                        </div>
+                                    ),
+                                )}
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <ul className="space-y-2">
+                            {getLocalized(
+                                currentProject.siteAnalysis.description,
+                            )}
+                        </ul>
+                    </section>
                     <section className="bg-white py-10">
                         <div className="container-custom">
                             <div className="flex flex-col">
@@ -581,7 +638,7 @@ const SpaceDetail = () => {
                                                 console.log(
                                                     `Opening modal for image index: ${imageIndex}`,
                                                 );
-                                                openImageModal(imageIndex);
+                                                openImageModal(image);
                                             }}
                                         >
                                             <div className="flex w-full justify-center">
@@ -659,7 +716,7 @@ const SpaceDetail = () => {
                                                 console.log(
                                                     `Opening modal for image index: ${imageIndex}`,
                                                 );
-                                                openImageModal(imageIndex);
+                                                openImageModal(image);
                                             }}
                                         >
                                             <div className="flex w-full justify-center">
@@ -709,7 +766,7 @@ const SpaceDetail = () => {
                                                 console.log(
                                                     `Opening modal for image index: ${imageIndex}`,
                                                 );
-                                                openImageModal(imageIndex);
+                                                openImageModal(image);
                                             }}
                                         >
                                             <div className="flex w-full justify-center">
@@ -757,7 +814,7 @@ const SpaceDetail = () => {
                                                 console.log(
                                                     `Opening modal for image index: ${imageIndex}`,
                                                 );
-                                                openImageModal(imageIndex);
+                                                openImageModal(image);
                                             }}
                                         >
                                             <div className="flex w-full justify-center">
@@ -882,13 +939,13 @@ const SpaceDetail = () => {
                                     console.log(
                                         `Opening modal for image index: ${imageIndex}`,
                                     );
-                                    openImageModal(imageIndex);
+                                    openImageModal(image);
                                 }}
                             >
                                 <div className="flex w-full justify-center">
                                     <LazyImage
                                         src={image.image}
-                                        alt={`${currentProject.title} - Image ${imageIndex + 1}`}
+                                        alt={`${getLocalized(currentProject.title)} - Image ${imageIndex + 1}`}
                                         className="max-h-[80vh] max-w-full object-contain"
                                         transitionDuration="duration-500"
                                         transitionTiming="ease-in-out-back"
@@ -1090,7 +1147,7 @@ const SpaceDetail = () => {
                                         key={`modal-image-${modalImageIndex}`}
                                         src={allImages[modalImageIndex].image}
                                         alt={`${getLocalized(currentProject.title)} - Full screen view`}
-                                        className="h-full w-full object-contain"
+                                        className="max-h-[85vh] max-w-[90vw] object-contain"
                                         tabIndex={-1}
                                         draggable={false}
                                     />
